@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Abhi – AI Product Owner & Consultant</title>
+    <meta
+      name="description"
+      content="Abhi – AI Product Owner & Consultant. From AI strategy & roadmapping to GenAI product design, data readiness, and AI adoption."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --bg: #020617;
+        --bg-elevated: rgba(15, 23, 42, 0.9);
+        --border-subtle: rgba(148, 163, 184, 0.35);
+        --accent: #22d3ee;
+        --accent-soft: rgba(34, 211, 238, 0.18);
+        --accent-2: #a855f7;
+        --text: #e5e7eb;
+        --text-muted: #9ca3af;
+        --radius-xl: 24px;
+        --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Inter", sans-serif;
+        background: radial-gradient(
+          circle at top left,
+          #0b1120 0,
+          #020617 55%,
+          #000 100%
+        );
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        min-height: 100vh;
+      }
+
+      /* NAV */
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 6vw;
+        backdrop-filter: blur(18px);
+        background: linear-gradient(
+          to bottom,
+          rgba(15, 23, 42, 0.92),
+          rgba(15, 23, 42, 0.5),
+          transparent
+        );
+        border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+      }
+
+      .nav-left {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .nav-logo-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 0, #a855f7, #22d3ee);
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+      }
+
+      .nav-logo-text {
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 18px;
+      }
+
+      .nav-link {
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        padding: 6px 0;
+        cursor: pointer;
+      }
+
+      .nav-link:hover {
+        color: var(--text);
+      }
+
+      .nav-cta {
+        border-radius: 999px;
+        border: 1px solid var(--accent);
+        background: radial-gradient(
+          circle at 0 0,
+          rgba(34, 211, 238, 0.35),
+          transparent
+        );
+        padding: 8px 18px;
+        color: var(--text);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        cursor: pointer;
+      }
+
+      /* SECTIONS */
+
+      .section {
+        padding: 72px 6vw;
+      }
+
+      .hero-section {
+        padding-top: 96px;
+      }
+
+      .section-header {
+        max-width: 720px;
+        margin-bottom: 32px;
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+        margin: 6px 0 12px;
+      }
+
+      .section-subtitle {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.75rem;
+        color: var(--accent);
+      }
+
+      /* HERO */
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .hero-title {
+        font-size: clamp(2.4rem, 3vw, 3.2rem);
+        line-height: 1.05;
+        margin: 10px 0 16px;
+      }
+
+      .hero-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+
+      .hero-body {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 18px;
+      }
+
+      .hero-ctas {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .btn-primary {
+        border-radius: 999px;
+        border: none;
+        padding: 10px 22px;
+        background: linear-gradient(120deg, #22d3ee, #2563eb);
+        color: #0b1120;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 0 18px rgba(34, 211, 238, 0.5);
+      }
+
+      .btn-secondary {
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        background: transparent;
+        color: var(--text);
+        padding: 10px 18px;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .hero-reassurance {
+        margin-top: 12px;
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+
+      .hero-3d-wrapper {
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-subtle);
+        background: radial-gradient(circle at 0 0, var(--accent-soft), transparent),
+          radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.23), transparent),
+          rgba(15, 23, 42, 0.95);
+        box-shadow: var(--shadow-soft);
+        padding: 14px;
+        position: relative;
+      }
+
+      .hero-3d {
+        width: 100%;
+        height: min(420px, 60vh);
+        border-radius: calc(var(--radius-xl) - 8px);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .hero-tooltip {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        background: radial-gradient(
+            circle at 0 0,
+            rgba(34, 211, 238, 0.22),
+            transparent
+          ),
+          rgba(15, 23, 42, 0.96);
+        backdrop-filter: blur(10px);
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease-out;
+      }
+
+      .hero-tooltip strong {
+        color: var(--text);
+        margin-right: 4px;
+      }
+
+      /* ABOUT */
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+        gap: 32px;
+      }
+
+      .card {
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-subtle);
+        padding: 22px 22px 24px;
+        background: linear-gradient(
+            135deg,
+            rgba(148, 163, 184, 0.06),
+            rgba(15, 23, 42, 0.95)
+          );
+        box-shadow: var(--shadow-soft);
+      }
+
+      .glass {
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.9),
+          rgba(15, 23, 42, 0.82)
+        );
+        backdrop-filter: blur(14px);
+      }
+
+      .body {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .about-highlights {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .highlight-card {
+        border-radius: 18px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        padding: 15px 16px;
+        background: radial-gradient(
+            circle at top left,
+            var(--accent-soft),
+            transparent
+          ),
+          rgba(15, 23, 42, 0.96);
+      }
+
+      .highlight-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--text-muted);
+      }
+
+      .highlight-card h3 {
+        margin: 6px 0 6px;
+        font-size: 0.98rem;
+      }
+
+      .highlight-card p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+      }
+
+      /* SERVICES */
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .service-card h3 {
+        margin-top: 0;
+        margin-bottom: 6px;
+        font-size: 1.01rem;
+      }
+
+      .service-for {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+
+      .service-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0 0 8px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .service-list li::before {
+        content: "•";
+        margin-right: 6px;
+        color: var(--accent);
+      }
+
+      .service-outcome {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      /* CASES */
+
+      .cases-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+        gap: 32px;
+        align-items: center;
+      }
+
+      .cases-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .case-card h3 {
+        margin-top: 6px;
+        margin-bottom: 8px;
+        font-size: 1rem;
+      }
+
+      .case-card p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        padding: 4px 10px;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .cases-3d-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .roi-3d {
+        width: 100%;
+        height: 280px;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        border: 1px solid var(--border-subtle);
+      }
+
+      .cases-3d-caption {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+      }
+
+      /* APPROACH */
+
+      .approach-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .approach-step {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+      }
+
+      .approach-card h3 {
+        margin-top: 0;
+        margin-bottom: 6px;
+        font-size: 0.98rem;
+      }
+
+      .approach-card p {
+        margin: 0;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+      }
+
+      /* CONTACT */
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+        gap: 24px;
+      }
+
+      .contact-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 12px 0 10px;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .contact-list li::before {
+        content: "•";
+        margin-right: 6px;
+        color: var(--accent);
+      }
+
+      .contact-note {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .contact-note a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .contact-form .field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+      }
+
+      .contact-form .field span {
+        color: var(--text-muted);
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: rgba(15, 23, 42, 0.9);
+        padding: 8px 10px;
+        color: var(--text);
+        font-size: 0.9rem;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.4);
+      }
+
+      .form-footnote {
+        margin-top: 10px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      /* FOOTER */
+
+      .footer {
+        padding: 24px 6vw 32px;
+        border-top: 1px solid rgba(15, 23, 42, 0.9);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .footer-sub {
+        opacity: 0.8;
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 960px) {
+        .nav-links {
+          display: none;
+        }
+        .hero-grid,
+        .about-grid,
+        .services-grid,
+        .cases-grid,
+        .approach-grid,
+        .contact-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .services-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .approach-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .hero-section {
+          padding-top: 82px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .section {
+          padding: 56px 5vw;
+        }
+        .hero-grid {
+          gap: 26px;
+        }
+        .about-highlights {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .approach-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .hero-3d {
+          height: 320px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- NAV -->
+      <header class="nav">
+        <div class="nav-left" data-scroll="#hero">
+          <span class="nav-logo-dot"></span>
+          <span class="nav-logo-text">Abhi.</span>
+        </div>
+        <nav class="nav-links">
+          <button class="nav-link" data-scroll="#about">About</button>
+          <button class="nav-link" data-scroll="#services">Services</button>
+          <button class="nav-link" data-scroll="#cases">Case Studies</button>
+          <button class="nav-link" data-scroll="#approach">How I Work</button>
+          <button class="nav-link" data-scroll="#contact">Contact</button>
+        </nav>
+        <button class="nav-cta" data-scroll="#contact">Book a call</button>
+      </header>
+
+      <!-- HERO -->
+      <section id="hero" class="section hero-section">
+        <div class="hero-grid">
+          <div class="hero-text">
+            <p class="eyebrow">AI PRODUCT OWNER &amp; CONSULTANT</p>
+            <h1 class="hero-title">Abhi – AI Product Owner &amp; Consultant</h1>
+            <p class="hero-subtitle">
+              I help product and leadership teams in retail, finance, and energy move
+              from AI hype to shipped AI products with clear roadmaps, governed
+              portfolios, and measurable ROI.
+            </p>
+            <p class="hero-body">
+              I sit between business, product, and engineering—turning vague AI ideas
+              into prioritized use cases, data-ready foundations, and pilots that
+              actually scale. From LLM-powered search and document automation to
+              recommendation engines, I focus on business impact, not demos.
+            </p>
+            <div class="hero-ctas">
+              <button class="btn-primary" data-scroll="#contact">
+                Book a discovery call
+              </button>
+              <button class="btn-secondary" data-scroll="#cases">
+                View case studies
+              </button>
+            </div>
+            <p class="hero-reassurance">
+              30–45 minute video call • No obligation • For Heads of Product, Strategy,
+              Data &amp; AI
+            </p>
+          </div>
+
+          <div class="hero-3d-wrapper">
+            <div class="hero-3d" id="hero-3d-container">
+              <canvas id="heroCanvas"></canvas>
+              <div class="hero-tooltip" id="heroTooltip"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section">
+        <div class="section-header">
+          <p class="eyebrow">ABOUT</p>
+          <h2 class="section-title">From AI delivery to AI strategy &amp; ROI</h2>
+        </div>
+        <div class="about-grid">
+          <article class="card glass">
+            <p class="body">
+              I’m Abhi, a Data &amp; AI Product Owner and consultant with over seven
+              years of experience turning AI ideas into shipped products across
+              industries like global sportswear retail, banking, energy, insurance, and
+              consumer services. At Adidas, I’ve led enterprise AI initiatives from
+              LLM-powered document automation and multimodal internal search to EU-wide
+              AI adoption strategies. Before that, I delivered AI and data science
+              projects for clients such as a major European bank and a leading energy
+              provider, building solutions for document intelligence, targeted marketing,
+              and analytics pipelines.
+            </p>
+            <p class="body">
+              My sweet spot is translating strategy into clear AI roadmaps, aligning
+              stakeholders, and defining the metrics that prove AI value. Whether we
+              work on GenAI, classic ML, or data foundations, I keep the conversation
+              grounded in risk, feasibility, and impact.
+            </p>
+          </article>
+
+          <div class="about-highlights">
+            <div class="highlight-card">
+              <span class="highlight-label">Experience</span>
+              <h3>7+ years in AI, data &amp; product</h3>
+              <p>
+                From hands-on ML and data pipelines to enterprise AI portfolios and
+                adoption strategies.
+              </p>
+            </div>
+            <div class="highlight-card">
+              <span class="highlight-label">Industries</span>
+              <h3>Retail, finance, energy &amp; more</h3>
+              <p>
+                Global sportswear, European banking, energy utilities, insurance, and
+                consumer services.
+              </p>
+            </div>
+            <div class="highlight-card">
+              <span class="highlight-label">AI Initiatives</span>
+              <h3>LLMs, ML, &amp; data products</h3>
+              <p>
+                LLM search &amp; automation, recommendation engines, ICR, segmentation
+                models, data marts, BI exposure.
+              </p>
+            </div>
+            <div class="highlight-card">
+              <span class="highlight-label">Author</span>
+              <h3>AI product &amp; ROI playbooks</h3>
+              <p>
+                Author of <em>Strategic Product Management in an AI-driven World</em>
+                and <em>AI to ROI</em>—practical guides for AI leaders.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="services" class="section">
+        <div class="section-header">
+          <p class="eyebrow">SERVICES</p>
+          <h2 class="section-title">What I do</h2>
+          <p class="section-subtitle">
+            I work with teams who are under pressure to “do something with AI” and need
+            a clear path from idea to shipped product.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="card service-card">
+            <h3>AI strategy &amp; portfolio roadmapping</h3>
+            <p class="service-for">
+              For Heads of Product, Strategy, or Data &amp; AI who need a coherent AI
+              plan.
+            </p>
+            <ul class="service-list">
+              <li>Clarify business goals and constraints.</li>
+              <li>Map existing initiatives and identify gaps.</li>
+              <li>Prioritize use cases by impact, feasibility, and data readiness.</li>
+              <li>
+                Define an AI roadmap with governance, ownership, and success metrics.
+              </li>
+            </ul>
+            <p class="service-outcome">
+              A prioritized, realistic AI portfolio aligned with strategic objectives—
+              without the pilot graveyard.
+            </p>
+          </article>
+
+          <article class="card service-card">
+            <h3>AI use case discovery &amp; validation</h3>
+            <p class="service-for">
+              For teams exploring AI or GenAI but unsure where to start.
+            </p>
+            <ul class="service-list">
+              <li>Facilitated workshops across business, product, and tech.</li>
+              <li>Discovery of high-value, practical AI use cases.</li>
+              <li>Feasibility checks across data, systems, and compliance.</li>
+              <li>Lean pilots that focus on learning and ROI.</li>
+            </ul>
+            <p class="service-outcome">
+              A shortlist of validated use cases with clear value hypotheses and lean
+              pilot designs.
+            </p>
+          </article>
+
+          <article class="card service-card">
+            <h3>GenAI &amp; LLM product design</h3>
+            <p class="service-for">
+              For organizations wanting to apply LLMs to search, documents, and internal
+              productivity.
+            </p>
+            <ul class="service-list">
+              <li>
+                Identify where LLMs add real value (search, Q&amp;A, summarization,
+                extraction).
+              </li>
+              <li>Design end-to-end LLM product flows and user journeys.</li>
+              <li>Support architecture, retrieval, and integration decisions.</li>
+              <li>Define guardrails, evaluation, and quality standards.</li>
+            </ul>
+            <p class="service-outcome">
+              Concrete LLM-powered product concepts that move beyond demos and plug into
+              real workflows.
+            </p>
+          </article>
+
+          <article class="card service-card">
+            <h3>Data products, BI &amp; AI readiness</h3>
+            <p class="service-for">
+              For teams with messy data needing a pragmatic AI foundation.
+            </p>
+            <ul class="service-list">
+              <li>Assess data, pipelines, marts, and BI exposure.</li>
+              <li>
+                Define core data products to support your highest value AI use cases.
+              </li>
+              <li>
+                Design KPI and reporting frameworks for non-technical stakeholders.
+              </li>
+              <li>
+                Improve how data is surfaced and used by business teams day-to-day.
+              </li>
+            </ul>
+            <p class="service-outcome">
+              A practical AI readiness plan and data product roadmap that supports both
+              BI and AI.
+            </p>
+          </article>
+
+          <article class="card service-card">
+            <h3>AI adoption &amp; change</h3>
+            <p class="service-for">
+              For organizations with AI tools that are underused or fragmented.
+            </p>
+            <ul class="service-list">
+              <li>Analyze how AI tools and data products are currently used.</li>
+              <li>Identify adoption blockers in UX, incentives, and processes.</li>
+              <li>Create enablement plans, playbooks, and training.</li>
+              <li>Embed AI into day-to-day operations, not just slideware.</li>
+            </ul>
+            <p class="service-outcome">
+              Higher adoption, visible impact of AI investments, and a repeatable
+              playbook for future rollouts.
+            </p>
+          </article>
+
+          <article class="card service-card">
+            <h3>Fractional AI product ownership</h3>
+            <p class="service-for">
+              For companies that need an experienced AI Product Owner, part-time.
+            </p>
+            <ul class="service-list">
+              <li>Hands-on product ownership for key AI initiatives.</li>
+              <li>Backlog prioritization and stakeholder alignment.</li>
+              <li>Bridge between leadership, engineering, and operations.</li>
+              <li>Mentor internal product or data leads to take over.</li>
+            </ul>
+            <p class="service-outcome">
+              Momentum on critical AI projects and a professionalized AI product
+              function.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- CASE STUDIES -->
+      <section id="cases" class="section">
+        <div class="section-header">
+          <p class="eyebrow">CASE STUDIES</p>
+          <h2 class="section-title">From idea to shipped AI products</h2>
+        </div>
+        <div class="cases-grid">
+          <div class="cases-list">
+            <article class="case-card card">
+              <span class="badge">Retail / Sportswear</span>
+              <h3>LLM-powered product data automation</h3>
+              <p>
+                At a global sportswear brand, I led a product data automation initiative
+                using LLMs to extract structured attributes from PPT/PDF documents. This
+                reduced manual effort, improved consistency, and accelerated time-to-
+                market for new products.
+              </p>
+            </article>
+            <article class="case-card card">
+              <span class="badge">Retail / Merchandising</span>
+              <h3>Multimodal AI search for trend-to-product discovery</h3>
+              <p>
+                Designed a multimodal internal search experience connecting global trends
+                to product catalog data. This helped merchandising and product teams
+                discover relevant items faster and make better assortment decisions.
+              </p>
+            </article>
+            <article class="case-card card">
+              <span class="badge">Banking</span>
+              <h3>Document intelligence &amp; ICR for high-volume workflows</h3>
+              <p>
+                In banking, I led the delivery of an intelligent character recognition
+                solution to automate document-heavy processes. The result: higher
+                throughput, improved compliance, and reduced manual errors.
+              </p>
+            </article>
+            <article class="case-card card">
+              <span class="badge">Energy</span>
+              <h3>Targeted retention campaigns using ML</h3>
+              <p>
+                For an energy provider, I supported ML models for behavioral segmentation
+                and personalized vouchers, increasing campaign efficiency and customer
+                retention.
+              </p>
+            </article>
+          </div>
+
+          <div class="cases-3d-wrapper">
+            <div class="roi-3d">
+              <canvas id="roiCanvas"></canvas>
+            </div>
+            <p class="cases-3d-caption">
+              A visual metaphor for moving from scattered experiments to a focused AI
+              portfolio with compounding ROI.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- APPROACH -->
+      <section id="approach" class="section">
+        <div class="section-header">
+          <p class="eyebrow">APPROACH</p>
+          <h2 class="section-title">How we work together</h2>
+        </div>
+        <div class="approach-grid">
+          <article class="card approach-card">
+            <span class="approach-step">01</span>
+            <h3>Clarify the real problem</h3>
+            <p>
+              We align on business goals, constraints, and existing initiatives—before
+              talking about models or tools.
+            </p>
+          </article>
+          <article class="card approach-card">
+            <span class="approach-step">02</span>
+            <h3>Prioritize &amp; design use cases</h3>
+            <p>
+              We identify and score use cases by impact, feasibility, and data
+              readiness, then design lean experiments.
+            </p>
+          </article>
+          <article class="card approach-card">
+            <span class="approach-step">03</span>
+            <h3>Deliver &amp; adopt</h3>
+            <p>
+              We support delivery with clear product ownership and adoption plans so AI
+              products don’t die at pilot stage.
+            </p>
+          </article>
+          <article class="card approach-card">
+            <span class="approach-step">04</span>
+            <h3>Measure &amp; scale</h3>
+            <p>
+              We define KPIs and feedback loops, then scale what works into a governed
+              AI portfolio.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section">
+        <div class="section-header">
+          <p class="eyebrow">CONTACT</p>
+          <h2 class="section-title">Book a discovery call</h2>
+          <p class="section-subtitle">
+            Ideal for Heads of Product, Strategy, Data &amp; AI who want to move from AI
+            experimentation to measurable results.
+          </p>
+        </div>
+        <div class="contact-grid">
+          <article class="card glass contact-card">
+            <p class="body">
+              In a 30–45 minute call, we’ll discuss your current AI initiatives, the
+              pressures you’re under, and what “good” would look like in 6–12 months.
+              I’ll share honest feedback on where AI can help, where it can’t, and what
+              a pragmatic path forward might look like.
+            </p>
+            <ul class="contact-list">
+              <li>Clarify your AI portfolio and priorities.</li>
+              <li>Spot quick wins and high-risk traps.</li>
+              <li>Decide whether we should work together—or not.</li>
+            </ul>
+            <p class="contact-note">
+              You can reach me via email at
+              <a href="mailto:youremail@example.com">youremail@example.com</a>
+              or plug in your Calendly link here.
+            </p>
+          </article>
+
+          <form class="card glass contact-form">
+            <label class="field">
+              <span>Name</span>
+              <input type="text" placeholder="Your name" />
+            </label>
+            <label class="field">
+              <span>Work email</span>
+              <input type="email" placeholder="name@company.com" />
+            </label>
+            <label class="field">
+              <span>Role</span>
+              <input type="text" placeholder="Head of Product, VP Strategy, etc." />
+            </label>
+            <label class="field">
+              <span>What are you trying to achieve with AI?</span>
+              <textarea
+                rows="4"
+                placeholder="Short description of your goals and challenges."
+              ></textarea>
+            </label>
+            <button class="btn-primary" type="button">
+              Submit inquiry
+            </button>
+            <p class="form-footnote">
+              This form is a visual placeholder—connect it to your email, form backend,
+              or CRM.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <span>© <span id="year"></span> Abhi – AI Product Owner &amp; Consultant</span>
+        <span class="footer-sub">
+          Available for advisory, workshops, and fractional AI product engagements.
+        </span>
+      </footer>
+    </div>
+
+    <!-- THREE.JS SCRIPTS -->
+    <script type="module">
+      import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+      import { OrbitControls } from "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+
+      // Year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Smooth scroll for nav buttons
+      document.querySelectorAll("[data-scroll]").forEach((el) => {
+        el.addEventListener("click", () => {
+          const target = document.querySelector(el.getAttribute("data-scroll"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      /* ========= HERO 3D SCENE ========= */
+      const heroContainer = document.getElementById("hero-3d-container");
+      const heroCanvas = document.getElementById("heroCanvas");
+      const heroTooltip = document.getElementById("heroTooltip");
+
+      const heroScene = new THREE.Scene();
+      heroScene.background = new THREE.Color("#020617");
+      const heroCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+      heroCamera.position.set(0, 0, 6);
+
+      const heroRenderer = new THREE.WebGLRenderer({
+        canvas: heroCanvas,
+        antialias: true,
+      });
+      heroRenderer.setPixelRatio(window.devicePixelRatio || 1);
+
+      const heroAmbient = new THREE.AmbientLight(0xffffff, 0.5);
+      heroScene.add(heroAmbient);
+      const heroPoint1 = new THREE.PointLight(0xffffff, 1.2);
+      heroPoint1.position.set(5, 5, 5);
+      heroScene.add(heroPoint1);
+      const heroPoint2 = new THREE.PointLight(0x22d3ee, 0.8);
+      heroPoint2.position.set(-5, -5, -3);
+      heroScene.add(heroPoint2);
+
+      const heroGroup = new THREE.Group();
+      heroScene.add(heroGroup);
+
+      // Data core
+      const coreGeo = new THREE.SphereGeometry(1.1, 64, 64);
+      const coreMat = new THREE.MeshStandardMaterial({
+        color: 0x0f172a,
+        emissive: 0x2563eb,
+        emissiveIntensity: 1.2,
+        metalness: 0.3,
+        roughness: 0.1,
+      });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      heroGroup.add(coreMesh);
+
+      // Ring
+      const ringGeo = new THREE.RingGeometry(1.4, 1.7, 64);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0x0ea5e9,
+        transparent: true,
+        opacity: 0.2,
+        side: THREE.DoubleSide,
+      });
+      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+      ringMesh.rotation.x = Math.PI / 2;
+      heroGroup.add(ringMesh);
+
+      const orbitLabels = [
+        {
+          label: "Strategy",
+          detail: "AI strategy & portfolio roadmapping.",
+          color: 0x22d3ee,
+        },
+        {
+          label: "Use Cases",
+          detail: "Discovery & validation of practical AI use cases.",
+          color: 0xa855f7,
+        },
+        {
+          label: "Models",
+          detail: "ML & LLM solution design and evaluation.",
+          color: 0x38bdf8,
+        },
+        {
+          label: "Data & Platforms",
+          detail: "Data products, BI, and AI readiness.",
+          color: 0x4ade80,
+        },
+        {
+          label: "Adoption",
+          detail: "Change, enablement, and scaling what works.",
+          color: 0xf97316,
+        },
+      ];
+
+      const orbitNodes = [];
+      const orbitRadius = 2.3;
+
+      orbitLabels.forEach((item, index) => {
+        const nodeGeo = new THREE.SphereGeometry(0.28, 32, 32);
+        const nodeMat = new THREE.MeshStandardMaterial({
+          color: item.color,
+          emissive: item.color,
+          emissiveIntensity: 0.9,
+          metalness: 0.4,
+          roughness: 0.2,
+        });
+        const nodeMesh = new THREE.Mesh(nodeGeo, nodeMat);
+        nodeMesh.userData = {
+          label: item.label,
+          detail: item.detail,
+          speed: 0.4 + index * 0.06,
+          index,
+        };
+        heroGroup.add(nodeMesh);
+        orbitNodes.push(nodeMesh);
+      });
+
+      const heroRaycaster = new THREE.Raycaster();
+      const heroPointer = new THREE.Vector2();
+      let heroHoveredNode = null;
+
+      function onHeroPointerMove(event) {
+        const rect = heroCanvas.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        heroPointer.set(x, y);
+      }
+
+      heroCanvas.addEventListener("pointermove", onHeroPointerMove);
+
+      /* ========= ROI 3D SCENE ========= */
+      const roiCanvas = document.getElementById("roiCanvas");
+      const roiScene = new THREE.Scene();
+      roiScene.background = new THREE.Color("#020617");
+      const roiCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+      roiCamera.position.set(4, 3, 6);
+
+      const roiRenderer = new THREE.WebGLRenderer({
+        canvas: roiCanvas,
+        antialias: true,
+      });
+      roiRenderer.setPixelRatio(window.devicePixelRatio || 1);
+
+      const roiAmbient = new THREE.AmbientLight(0xffffff, 0.6);
+      roiScene.add(roiAmbient);
+      const roiDir = new THREE.DirectionalLight(0xffffff, 1.2);
+      roiDir.position.set(4, 8, 4);
+      roiScene.add(roiDir);
+
+      const roiGroup = new THREE.Group();
+      roiScene.add(roiGroup);
+
+      const baseGeo = new THREE.CircleGeometry(3, 64);
+      const baseMat = new THREE.MeshStandardMaterial({
+        color: 0x020617,
+        transparent: true,
+        opacity: 0.9,
+        metalness: 0.6,
+        roughness: 0.1,
+        side: THREE.DoubleSide,
+      });
+      const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+      baseMesh.rotation.x = -Math.PI / 2;
+      baseMesh.position.y = -0.01;
+      roiGroup.add(baseMesh);
+
+      const bars = [
+        { label: "Automation", height: 1.8 },
+        { label: "Search", height: 1.4 },
+        { label: "ICR", height: 1.6 },
+        { label: "Marketing", height: 1.2 },
+      ];
+
+      bars.forEach((bar, i) => {
+        const angle = (i / bars.length) * Math.PI * 2;
+        const radius = 1.3;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+
+        const barGeo = new THREE.BoxGeometry(0.45, bar.height, 0.45);
+        const barMat = new THREE.MeshStandardMaterial({
+          color: 0x22d3ee,
+          transparent: true,
+          opacity: 0.25,
+          metalness: 0.8,
+          roughness: 0.1,
+        });
+        const barMesh = new THREE.Mesh(barGeo, barMat);
+        barMesh.position.set(x, bar.height / 2, z);
+        roiGroup.add(barMesh);
+
+        const capGeo = new THREE.SphereGeometry(0.18, 32, 32);
+        const capMat = new THREE.MeshStandardMaterial({
+          color: 0x22d3ee,
+          emissive: 0x22d3ee,
+          emissiveIntensity: 1.4,
+          metalness: 0.3,
+          roughness: 0.2,
+        });
+        const capMesh = new THREE.Mesh(capGeo, capMat);
+        capMesh.position.set(x, bar.height + 0.12, z);
+        roiGroup.add(capMesh);
+      });
+
+      // Controls
+      const heroControls = new OrbitControls(heroCamera, heroCanvas);
+      heroControls.enableZoom = false;
+      heroControls.enablePan = false;
+      heroControls.enableDamping = true;
+      heroControls.dampingFactor = 0.08;
+
+      const roiControls = new OrbitControls(roiCamera, roiCanvas);
+      roiControls.enableZoom = false;
+      roiControls.enablePan = false;
+      roiControls.enableDamping = true;
+      roiControls.dampingFactor = 0.08;
+
+      /* ========= RESIZE HANDLING ========= */
+      function resizeHero() {
+        const rect = heroContainer.getBoundingClientRect();
+        heroCamera.aspect = rect.width / rect.height;
+        heroCamera.updateProjectionMatrix();
+        heroRenderer.setSize(rect.width, rect.height);
+      }
+
+      function resizeRoi() {
+        const rect = roiCanvas.getBoundingClientRect();
+        roiCamera.aspect = rect.width / rect.height;
+        roiCamera.updateProjectionMatrix();
+        roiRenderer.setSize(rect.width, rect.height);
+      }
+
+      function handleResize() {
+        resizeHero();
+        resizeRoi();
+      }
+
+      window.addEventListener("resize", handleResize);
+      handleResize();
+
+      /* ========= ANIMATION LOOP ========= */
+      const clock = new THREE.Clock();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsed = clock.getElapsedTime();
+
+        // Hero group rotation
+        heroGroup.rotation.y += 0.0015;
+
+        // Orbit nodes
+        orbitNodes.forEach((node) => {
+          const speed = node.userData.speed;
+          const index = node.userData.index;
+          const t = elapsed * speed + index;
+          const x = Math.cos(t) * orbitRadius;
+          const z = Math.sin(t) * orbitRadius;
+          const y = Math.sin(t * 0.7) * 0.4;
+          node.position.set(x, y, z);
+          node.scale.setScalar(
+            heroHoveredNode === node ? 0.38 : 0.28
+          );
+        });
+
+        // Raycasting for hero
+        heroRaycaster.setFromCamera(heroPointer, heroCamera);
+        const intersects = heroRaycaster.intersectObjects(orbitNodes, false);
+
+        if (intersects.length > 0) {
+          const node = intersects[0].object;
+          if (heroHoveredNode !== node) {
+            heroHoveredNode = node;
+            const data = node.userData;
+            heroTooltip.innerHTML =
+              "<strong>" + data.label + ":</strong> " + data.detail;
+            heroTooltip.style.opacity = "1";
+          }
+        } else {
+          heroHoveredNode = null;
+          heroTooltip.style.opacity = "0";
+        }
+
+        // ROI rotation
+        roiGroup.rotation.y += 0.002;
+
+        heroControls.update();
+        roiControls.update();
+
+        heroRenderer.render(heroScene, heroCamera);
+        roiRenderer.render(roiScene, roiCamera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
