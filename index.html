@@ -1036,9 +1036,8 @@
       </footer>
     </div>
 
-    <!-- THREE.JS LIBRARIES (non-module, works on GitHub Pages) -->
+    <!-- THREE.JS LIBRARY -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
 
     <!-- MAIN SCRIPT -->
     <script>
@@ -1277,19 +1276,6 @@
         roiGroup.add(capMesh);
       });
 
-      // Controls
-      const heroControls = new THREE.OrbitControls(heroCamera, heroCanvas);
-      heroControls.enableZoom = false;
-      heroControls.enablePan = false;
-      heroControls.enableDamping = true;
-      heroControls.dampingFactor = 0.08;
-
-      const roiControls = new THREE.OrbitControls(roiCamera, roiCanvas);
-      roiControls.enableZoom = false;
-      roiControls.enablePan = false;
-      roiControls.enableDamping = true;
-      roiControls.dampingFactor = 0.08;
-
       /* ========= RESIZE HANDLING ========= */
       function resizeHero() {
         const rect = heroContainer.getBoundingClientRect();
@@ -1359,9 +1345,6 @@
 
         // ROI rotation
         roiGroup.rotation.y += 0.002;
-
-        heroControls.update();
-        roiControls.update();
 
         heroRenderer.render(heroScene, heroCamera);
         roiRenderer.render(roiScene, roiCamera);
