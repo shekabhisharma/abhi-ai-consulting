@@ -982,7 +982,7 @@
             </ul>
             <p class="contact-note">
               You can reach me via email at
-              <a href="mailto:youremail@example.com">youremail@example.com</a>
+              <a href="mailto:ungiorno7@gmail.com">ungiorno7@gmail.com</a>
               or plug in your Calendly link here.
             </p>
           </article>
@@ -1036,7 +1036,7 @@
       </footer>
     </div>
 
-    <!-- THREE.JS LIBRARIES (non-module, works well on GitHub Pages) -->
+    <!-- THREE.JS LIBRARIES (non-module, works on GitHub Pages) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
 
@@ -1082,8 +1082,8 @@
 
         const body = encodeURIComponent(bodyLines.join("\n"));
 
-        // TODO: replace with your real email address
-        const mailto = "mailto:ungiorno7@gmail.com?subject=" + subject + "&body=" + body;
+        const mailto =
+          "mailto:ungiorno7@gmail.com?subject=" + subject + "&body=" + body;
         window.location.href = mailto;
       });
 
@@ -1277,7 +1277,7 @@
         roiGroup.add(capMesh);
       });
 
-      // Controls (from OrbitControls script added above)
+      // Controls
       const heroControls = new THREE.OrbitControls(heroCamera, heroCanvas);
       heroControls.enableZoom = false;
       heroControls.enablePan = false;
@@ -1340,7 +1340,6 @@
         });
 
         // Raycasting for hero
-        const heroRaycaster = new THREE.Raycaster();
         heroRaycaster.setFromCamera(heroPointer, heroCamera);
         const intersects = heroRaycaster.intersectObjects(orbitNodes, false);
 
@@ -1368,7 +1367,6 @@
         roiRenderer.render(roiScene, roiCamera);
       }
 
-      const heroPointer = new THREE.Vector2(0, 0);
       animate();
     </script>
   </body>
