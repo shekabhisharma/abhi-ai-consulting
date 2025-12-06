@@ -250,45 +250,205 @@
         border: 1px solid var(--border-subtle);
         background: radial-gradient(circle at 0 0, var(--accent-soft), transparent),
           radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.23), transparent),
-          rgba(15, 23, 42, 0.95);
+          rgba(15, 23, 42, 0.96);
         box-shadow: var(--shadow-soft);
-        padding: 14px;
+        padding: 16px 16px 18px;
         position: relative;
       }
 
-      .hero-3d {
-        width: 100%;
-        height: min(420px, 60vh);
-        border-radius: calc(var(--radius-xl) - 8px);
-        overflow: hidden;
-        position: relative;
+      /* 2D FLOW VISUAL */
+
+      .hero-flow {
+        display: grid;
+        grid-template-columns: 1.1fr auto 1.1fr auto 1.1fr;
+        gap: 8px;
+        align-items: stretch;
       }
 
-      .hero-tooltip {
-        position: absolute;
-        left: 16px;
-        bottom: 16px;
-        padding: 8px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(148, 163, 184, 0.6);
+      .hero-flow-card {
+        border-radius: 18px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        padding: 14px 14px 16px;
         background: radial-gradient(
-            circle at 0 0,
-            rgba(34, 211, 238, 0.22),
+            circle at top,
+            rgba(34, 211, 238, 0.12),
             transparent
           ),
           rgba(15, 23, 42, 0.96);
-        backdrop-filter: blur(10px);
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.2s ease-out;
-        max-width: 260px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        position: relative;
+        overflow: hidden;
       }
 
-      .hero-tooltip strong {
-        color: var(--text);
-        margin-right: 4px;
+      .hero-flow-card--center {
+        background: radial-gradient(
+            circle at top,
+            rgba(168, 85, 247, 0.15),
+            transparent
+          ),
+          rgba(15, 23, 42, 0.98);
+        box-shadow: 0 0 22px rgba(139, 92, 246, 0.4);
+      }
+
+      .hero-flow-card--right {
+        background: radial-gradient(
+            circle at top,
+            rgba(34, 197, 94, 0.16),
+            transparent
+          ),
+          rgba(15, 23, 42, 0.98);
+      }
+
+      .hero-flow-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+      }
+
+      .hero-flow-icon--left {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.8);
+      }
+
+      .hero-flow-icon--center {
+        background: radial-gradient(circle at 30% 0, #22d3ee, #4f46e5);
+        color: #0b1120;
+      }
+
+      .hero-flow-icon--right {
+        background: radial-gradient(circle at 0 0, #22c55e, #22d3ee);
+        color: #0b1120;
+      }
+
+      .hero-flow-label {
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--text-muted);
+      }
+
+      .hero-flow-title {
+        font-size: 0.96rem;
+        margin: 0;
+      }
+
+      .hero-flow-body {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      .hero-flow-meta {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      .hero-flow-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-flow-arrow-inner {
+        width: 32px;
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #22d3ee, #a855f7);
+        position: relative;
+        overflow: visible;
+      }
+
+      .hero-flow-arrow-inner::after {
+        content: "";
+        position: absolute;
+        right: -4px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-left: 6px solid #a855f7;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+      }
+
+      /* Little animated dots on arrows */
+      .hero-flow-arrow-dot {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #e5e7eb;
+        box-shadow: 0 0 12px rgba(226, 232, 240, 0.6);
+        animation: arrowTravel 1.8s linear infinite;
+      }
+
+      .hero-flow-arrow-dot.dot-2 {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes arrowTravel {
+        0% {
+          left: 0%;
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          left: 100%;
+          opacity: 0;
+        }
+      }
+
+      /* subtle float animation on cards */
+
+      .hero-flow-card--float-left {
+        animation: floatLeft 6s ease-in-out infinite;
+      }
+      .hero-flow-card--float-center {
+        animation: floatCenter 7s ease-in-out infinite;
+      }
+      .hero-flow-card--float-right {
+        animation: floatRight 6.5s ease-in-out infinite;
+      }
+
+      @keyframes floatLeft {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+      }
+
+      @keyframes floatCenter {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+
+      @keyframes floatRight {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
       }
 
       /* ABOUT */
@@ -577,6 +737,16 @@
 
       /* RESPONSIVE */
 
+      @media (max-width: 1024px) {
+        .hero-flow {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .hero-flow-arrow {
+          display: none;
+        }
+      }
+
       @media (max-width: 960px) {
         .nav-links {
           display: none;
@@ -612,9 +782,6 @@
         }
         .approach-grid {
           grid-template-columns: minmax(0, 1fr);
-        }
-        .hero-3d {
-          height: 320px;
         }
       }
     </style>
@@ -671,10 +838,78 @@
             </p>
           </div>
 
+          <!-- 2D FLOW VISUAL: Client → Abhi + AI → AI Strategy -->
           <div class="hero-3d-wrapper">
-            <div class="hero-3d" id="hero-3d-container">
-              <canvas id="heroCanvas"></canvas>
-              <div class="hero-tooltip" id="heroTooltip"></div>
+            <div class="hero-flow">
+              <!-- Client Problems -->
+              <article
+                class="hero-flow-card hero-flow-card--float-left"
+                aria-label="Client problems"
+              >
+                <div class="hero-flow-icon hero-flow-icon--left">👤</div>
+                <span class="hero-flow-label">Client problems</span>
+                <h3 class="hero-flow-title">Unclear AI direction</h3>
+                <p class="hero-flow-body">
+                  “We need to use AI” but with too many ideas, legacy systems, and no
+                  clear path from experiment to impact.
+                </p>
+                <p class="hero-flow-meta">
+                  Inputs: scattered use cases, slide decks, data silos, stakeholder
+                  requests.
+                </p>
+              </article>
+
+              <!-- Arrow -->
+              <div class="hero-flow-arrow" aria-hidden="true">
+                <div class="hero-flow-arrow-inner">
+                  <div class="hero-flow-arrow-dot"></div>
+                  <div class="hero-flow-arrow-dot dot-2"></div>
+                </div>
+              </div>
+
+              <!-- Abhi + AI -->
+              <article
+                class="hero-flow-card hero-flow-card--center hero-flow-card--float-center"
+                aria-label="Abhi and AI expertise"
+              >
+                <div class="hero-flow-icon hero-flow-icon--center">A</div>
+                <span class="hero-flow-label">Abhi + AI product</span>
+                <h3 class="hero-flow-title">Translate noise into a plan</h3>
+                <p class="hero-flow-body">
+                  I work with product, data, and leadership teams to select the right
+                  use cases, design AI products, and define how success is measured.
+                </p>
+                <p class="hero-flow-meta">
+                  Activities: portfolio mapping, use case scoring, AI/ML &amp; LLM
+                  solution design, data readiness checks.
+                </p>
+              </article>
+
+              <!-- Arrow -->
+              <div class="hero-flow-arrow" aria-hidden="true">
+                <div class="hero-flow-arrow-inner">
+                  <div class="hero-flow-arrow-dot"></div>
+                  <div class="hero-flow-arrow-dot dot-2"></div>
+                </div>
+              </div>
+
+              <!-- AI Strategy Output -->
+              <article
+                class="hero-flow-card hero-flow-card--right hero-flow-card--float-right"
+                aria-label="AI strategy output"
+              >
+                <div class="hero-flow-icon hero-flow-icon--right">📊</div>
+                <span class="hero-flow-label">AI strategy &amp; delivery</span>
+                <h3 class="hero-flow-title">Structured AI roadmap</h3>
+                <p class="hero-flow-body">
+                  A prioritized set of AI initiatives with owners, timelines, data
+                  requirements, and KPIs—built to actually ship.
+                </p>
+                <p class="hero-flow-meta">
+                  Outputs: roadmap, use case playbook, pilot designs, adoption &amp;
+                  measurement plan.
+                </p>
+              </article>
             </div>
           </div>
         </div>
@@ -1153,270 +1388,6 @@
       const particles = new THREE.Points(particleGeo, particleMat);
       bgScene.add(particles);
 
-      /* ========= HELPER: TEXTURE LABEL ========= */
-      function createTextLabelTexture(text) {
-        const canvas = document.createElement("canvas");
-        canvas.width = 256;
-        canvas.height = 64;
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, 256, 64);
-        ctx.fillStyle = "rgba(15,23,42,0)";
-        ctx.fillRect(0, 0, 256, 64);
-        ctx.font = "28px system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
-        ctx.fillStyle = "#e5e7eb";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(text, 128, 32);
-        const texture = new THREE.CanvasTexture(canvas);
-        texture.needsUpdate = true;
-        return texture;
-      }
-
-      /* ========= HERO 3D SCENE (Abhi + Clients + AI Strategy) ========= */
-      const heroContainer = document.getElementById("hero-3d-container");
-      const heroCanvas = document.getElementById("heroCanvas");
-      const heroTooltip = document.getElementById("heroTooltip");
-
-      const heroScene = new THREE.Scene();
-      heroScene.background = new THREE.Color("#020617");
-      const heroCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-      heroCamera.position.set(0, 1.2, 6);
-
-      const heroRenderer = new THREE.WebGLRenderer({
-        canvas: heroCanvas,
-        antialias: true,
-      });
-      heroRenderer.setPixelRatio(window.devicePixelRatio || 1);
-
-      const heroAmbient = new THREE.AmbientLight(0xffffff, 0.6);
-      heroScene.add(heroAmbient);
-      const heroPoint1 = new THREE.PointLight(0xffffff, 1.2);
-      heroPoint1.position.set(5, 6, 6);
-      heroScene.add(heroPoint1);
-      const heroPoint2 = new THREE.PointLight(0x22d3ee, 0.7);
-      heroPoint2.position.set(-4, -4, -3);
-      heroScene.add(heroPoint2);
-
-      const heroGroup = new THREE.Group();
-      heroScene.add(heroGroup);
-
-      // Central platform
-      const platformGeo = new THREE.CylinderGeometry(3, 3, 0.25, 64);
-      const platformMat = new THREE.MeshStandardMaterial({
-        color: 0x020617,
-        metalness: 0.7,
-        roughness: 0.2,
-        transparent: true,
-        opacity: 0.96,
-      });
-      const platformMesh = new THREE.Mesh(platformGeo, platformMat);
-      platformMesh.position.y = -1.2;
-      heroGroup.add(platformMesh);
-
-      // Abhi character (stylized)
-      const abhiGroup = new THREE.Group();
-      abhiGroup.position.set(0, -0.2, 0);
-      heroGroup.add(abhiGroup);
-
-      const abhiBodyGeo = new THREE.CylinderGeometry(0.45, 0.5, 1.6, 20);
-      const abhiBodyMat = new THREE.MeshStandardMaterial({
-        color: 0x1e293b,
-        metalness: 0.4,
-        roughness: 0.3,
-      });
-      const abhiBody = new THREE.Mesh(abhiBodyGeo, abhiBodyMat);
-      abhiBody.position.y = -0.2;
-      abhiGroup.add(abhiBody);
-
-      const abhiHeadGeo = new THREE.SphereGeometry(0.42, 24, 24);
-      const abhiHeadMat = new THREE.MeshStandardMaterial({
-        color: 0x38bdf8,
-        emissive: 0x38bdf8,
-        emissiveIntensity: 0.7,
-        metalness: 0.3,
-        roughness: 0.2,
-      });
-      const abhiHead = new THREE.Mesh(abhiHeadGeo, abhiHeadMat);
-      abhiHead.position.y = 0.9;
-      abhiGroup.add(abhiHead);
-
-      // Abhi name label
-      const abhiLabelTex = createTextLabelTexture("Abhi");
-      const abhiLabelGeo = new THREE.PlaneGeometry(1.4, 0.34);
-      const abhiLabelMat = new THREE.MeshBasicMaterial({
-        map: abhiLabelTex,
-        transparent: true,
-      });
-      const abhiLabel = new THREE.Mesh(abhiLabelGeo, abhiLabelMat);
-      abhiLabel.position.set(1.1, 0.9, 0);
-      abhiLabel.rotation.y = -0.35;
-      abhiGroup.add(abhiLabel);
-
-      // AI halo ring
-      const aiRingGeo = new THREE.TorusGeometry(0.75, 0.05, 16, 64);
-      const aiRingMat = new THREE.MeshBasicMaterial({
-        color: 0x22d3ee,
-        transparent: true,
-        opacity: 0.5,
-      });
-      const aiRing = new THREE.Mesh(aiRingGeo, aiRingMat);
-      aiRing.position.set(0, 0.9, 0);
-      aiRing.rotation.x = Math.PI / 2.5;
-      heroGroup.add(aiRing);
-
-      // AI orbiting shapes around Abhi
-      const aiOrbiters = [];
-      const orbGeo = new THREE.IcosahedronGeometry(0.16, 0);
-      const orbMat = new THREE.MeshStandardMaterial({
-        color: 0xa855f7,
-        emissive: 0xa855f7,
-        emissiveIntensity: 1.1,
-        metalness: 0.4,
-        roughness: 0.2,
-      });
-
-      for (let i = 0; i < 3; i++) {
-        const orb = new THREE.Mesh(orbGeo, orbMat);
-        orb.userData = {
-          radius: 1.05,
-          speed: 0.7 + i * 0.2,
-          offset: i * (Math.PI * 2 / 3),
-        };
-        heroGroup.add(orb);
-        aiOrbiters.push(orb);
-      }
-
-      // Helper for interactive tooltips
-      const heroRaycaster = new THREE.Raycaster();
-      const heroPointer = new THREE.Vector2();
-      const heroInteractive = [];
-      let heroHoveredObject = null;
-
-      function registerInteractive(mesh, label, detail) {
-        mesh.userData.tooltipLabel = label;
-        mesh.userData.tooltipDetail = detail;
-        heroInteractive.push(mesh);
-      }
-
-      // Register Abhi for tooltip
-      registerInteractive(
-        abhiBody,
-        "Abhi – AI Product Owner",
-        "Translating client problems into pragmatic AI strategy and shipped products."
-      );
-      registerInteractive(
-        abhiHead,
-        "Abhi – AI Product Owner",
-        "Brings together product thinking, data, and AI to focus on business impact."
-      );
-
-      // Clients on the left
-      const clientTiles = [];
-      const clientZOffsets = [-0.4, 0.0, 0.4];
-
-      for (let i = 0; i < 3; i++) {
-        const clientGroup = new THREE.Group();
-        clientGroup.position.set(-2.3, -0.6, clientZOffsets[i]);
-        heroGroup.add(clientGroup);
-
-        const cBodyGeo = new THREE.CylinderGeometry(0.22, 0.24, 0.9, 16);
-        const cBodyMat = new THREE.MeshStandardMaterial({
-          color: 0x111827,
-          metalness: 0.3,
-          roughness: 0.4,
-        });
-        const cBody = new THREE.Mesh(cBodyGeo, cBodyMat);
-        cBody.position.y = -0.2;
-        clientGroup.add(cBody);
-
-        const cHeadGeo = new THREE.SphereGeometry(0.25, 18, 18);
-        const cHeadMat = new THREE.MeshStandardMaterial({
-          color: 0x9ca3af,
-          metalness: 0.2,
-          roughness: 0.5,
-        });
-        const cHead = new THREE.Mesh(cHeadGeo, cHeadMat);
-        cHead.position.y = 0.35;
-        clientGroup.add(cHead);
-
-        registerInteractive(
-          cBody,
-          "Client problems",
-          "Leaders with complex AI questions, legacy systems, and pressure to deliver."
-        );
-        registerInteractive(
-          cHead,
-          "Client problems",
-          "Real-world challenges from product, data, and business stakeholders."
-        );
-      }
-
-      // Floating chat/document tiles near clients
-      const tileGeo = new THREE.BoxGeometry(0.7, 0.45, 0.06);
-      const tileMat = new THREE.MeshStandardMaterial({
-        color: 0x1f2937,
-        emissive: 0x0ea5e9,
-        emissiveIntensity: 0.4,
-        metalness: 0.5,
-        roughness: 0.25,
-      });
-
-      for (let i = 0; i < 4; i++) {
-        const tile = new THREE.Mesh(tileGeo, tileMat);
-        const baseZ = -0.3 + (i * 0.2);
-        tile.position.set(-2.1, 0.1 + i * 0.15, baseZ);
-        tile.userData.baseZ = baseZ;
-        clientTiles.push(tile);
-        heroGroup.add(tile);
-      }
-
-      // Strategy tiles on the right
-      const strategyTiles = [];
-      const stratGeo = new THREE.BoxGeometry(0.9, 0.45, 0.14);
-      const stratMat = new THREE.MeshStandardMaterial({
-        color: 0x0f172a,
-        emissive: 0x22d3ee,
-        emissiveIntensity: 0.7,
-        metalness: 0.6,
-        roughness: 0.2,
-      });
-
-      const stratHeights = [-0.6, -0.1, 0.4, 0.9];
-      stratHeights.forEach((y, idx) => {
-        const tile = new THREE.Mesh(stratGeo, stratMat);
-        tile.position.set(2.2, y, 0);
-        tile.userData.baseY = y;
-        strategyTiles.push(tile);
-        heroGroup.add(tile);
-
-        registerInteractive(
-          tile,
-          "AI Strategy & Roadmap",
-          "Structured AI initiatives with clear outcomes, owners, and next steps."
-        );
-      });
-
-      // Strategy engraving (thin plate behind tiles)
-      const stratBackGeo = new THREE.BoxGeometry(1.8, 2.4, 0.02);
-      const stratBackMat = new THREE.MeshStandardMaterial({
-        color: 0x020617,
-        metalness: 0.7,
-        roughness: 0.2,
-      });
-      const stratBack = new THREE.Mesh(stratBackGeo, stratBackMat);
-      stratBack.position.set(2.2, 0.2, -0.35);
-      heroGroup.add(stratBack);
-
-      // Pointer handling
-      function onHeroPointerMove(event) {
-        const rect = heroCanvas.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        heroPointer.set(x, y);
-      }
-
-      heroCanvas.addEventListener("pointermove", onHeroPointerMove);
-
       /* ========= ROI 3D SCENE ========= */
       const roiCanvas = document.getElementById("roiCanvas");
       const roiScene = new THREE.Scene();
@@ -1492,15 +1463,6 @@
       });
 
       /* ========= RESIZE HANDLING ========= */
-      function resizeHero() {
-        const rect = heroContainer.getBoundingClientRect();
-        const w = rect.width || heroContainer.clientWidth || 400;
-        const h = rect.height || heroContainer.clientHeight || 300;
-        heroCamera.aspect = w / h;
-        heroCamera.updateProjectionMatrix();
-        heroRenderer.setSize(w, h);
-      }
-
       function resizeRoi() {
         const rect = roiCanvas.getBoundingClientRect();
         const w = rect.width || roiCanvas.clientWidth || 400;
@@ -1517,7 +1479,6 @@
       }
 
       function handleResize() {
-        resizeHero();
         resizeRoi();
         resizeBg();
       }
@@ -1543,80 +1504,11 @@
         attr.needsUpdate = true;
         particles.rotation.y += 0.0006;
 
-        // Gentle camera orbit for hero
-        const camRadius = 6.2;
-        const camAngle = Math.sin(elapsed * 0.15) * 0.18;
-        heroCamera.position.x = Math.sin(camAngle) * camRadius * 0.06;
-        heroCamera.position.z = camRadius + Math.cos(camAngle) * 0.2;
-        heroCamera.lookAt(0, 0, 0);
-
-        // Whole hero group subtle motion
-        heroGroup.rotation.y = Math.sin(elapsed * 0.15) * 0.18;
-
-        // Abhi bobbing slightly
-        abhiGroup.position.y = -0.2 + Math.sin(elapsed * 1.2) * 0.06;
-
-        // AI ring & orbiters
-        aiRing.rotation.y = elapsed * 0.9;
-        aiOrbiters.forEach((orb) => {
-          const r = orb.userData.radius;
-          const speed = orb.userData.speed;
-          const off = orb.userData.offset;
-          const ang = elapsed * speed + off;
-          orb.position.set(
-            Math.cos(ang) * r,
-            0.9 + Math.sin(ang * 1.6) * 0.12,
-            Math.sin(ang) * r
-          );
-          orb.rotation.x = elapsed * 1.1;
-          orb.rotation.y = elapsed * 0.8;
-        });
-
-        // Client tiles drifting toward Abhi (loop)
-        clientTiles.forEach((tile, idx) => {
-          const t = elapsed * 0.6 + idx * 0.4;
-          const baseZ = tile.userData.baseZ;
-          tile.position.x = -2.3 + Math.sin(t) * 0.4;
-          tile.position.y = 0.2 + Math.cos(t * 1.3) * 0.15 + idx * 0.03;
-          tile.position.z = baseZ + Math.sin(t * 0.8) * 0.2;
-        });
-
-        // Strategy tiles arranging / pulsing
-        strategyTiles.forEach((tile, idx) => {
-          const t = elapsed * 0.9 + idx * 0.6;
-          const baseY = tile.userData.baseY;
-          tile.position.y = baseY + Math.sin(t) * 0.12;
-          const s = 0.95 + 0.08 * Math.max(0, Math.sin(t));
-          tile.scale.set(s, s, s);
-        });
-
         // ROI rotation
         roiGroup.rotation.y += 0.002;
 
-        // Raycasting for hero tooltips
-        heroRaycaster.setFromCamera(heroPointer, heroCamera);
-        const intersects = heroRaycaster.intersectObjects(heroInteractive, false);
-
-        if (intersects.length > 0) {
-          const obj = intersects[0].object;
-          if (heroHoveredObject !== obj) {
-            heroHoveredObject = obj;
-            const data = obj.userData;
-            heroTooltip.innerHTML =
-              "<strong>" +
-              (data.tooltipLabel || "AI Strategy") +
-              ":</strong> " +
-              (data.tooltipDetail || "");
-            heroTooltip.style.opacity = "1";
-          }
-        } else {
-          heroHoveredObject = null;
-          heroTooltip.style.opacity = "0";
-        }
-
         // Render all scenes
         bgRenderer.render(bgScene, bgCamera);
-        heroRenderer.render(heroScene, heroCamera);
         roiRenderer.render(roiScene, roiCamera);
       }
 
