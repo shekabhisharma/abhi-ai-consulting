@@ -460,10 +460,10 @@
         }
       }
 
-      /* 2D AI ROBOT STRIP UNDER FLOW */
+      /* 2D AI ROBOT STRIP – reused in ABOUT as co-pilot */
 
       .hero-visual-extra {
-        margin-top: 14px;
+        margin-top: 18px;
         border-radius: 16px;
         border: 1px solid rgba(148, 163, 184, 0.4);
         padding: 10px 12px;
@@ -611,6 +611,11 @@
         font-size: 0.85rem;
       }
 
+      .about-copilot-wrapper {
+        margin-top: 24px;
+        max-width: 720px;
+      }
+
       /* SERVICES */
 
       .services-grid {
@@ -700,6 +705,89 @@
         border-radius: var(--radius-xl);
         overflow: hidden;
         border: 1px solid var(--border-subtle);
+      }
+
+      .cases-extra-row {
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .cases-illustration {
+        width: 72px;
+        height: 60px;
+        border-radius: 18px;
+        background: radial-gradient(
+            circle at top,
+            rgba(34, 211, 238, 0.3),
+            transparent
+          ),
+          rgba(15, 23, 42, 0.96);
+        position: relative;
+        padding: 6px 8px;
+        box-sizing: border-box;
+      }
+
+      .cases-building {
+        position: absolute;
+        bottom: 8px;
+        width: 10px;
+        border-radius: 4px 4px 2px 2px;
+        background: rgba(148, 163, 184, 0.9);
+      }
+
+      .cases-building.b1 {
+        left: 8px;
+        height: 24px;
+        opacity: 0.7;
+      }
+      .cases-building.b2 {
+        left: 22px;
+        height: 32px;
+      }
+      .cases-building.b3 {
+        left: 38px;
+        height: 18px;
+        opacity: 0.7;
+      }
+
+      .cases-ai-chip {
+        position: absolute;
+        right: 6px;
+        top: 8px;
+        width: 20px;
+        height: 16px;
+        border-radius: 6px;
+        border: 1px solid #22d3ee;
+        background: rgba(15, 23, 42, 0.96);
+        box-shadow: 0 0 12px rgba(34, 211, 238, 0.7);
+      }
+
+      .cases-ai-dot {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 999px;
+        background: #22d3ee;
+      }
+
+      .cases-ai-dot.d1 {
+        left: 4px;
+        top: 4px;
+      }
+      .cases-ai-dot.d2 {
+        right: 4px;
+        bottom: 4px;
+      }
+
+      .cases-line {
+        position: absolute;
+        right: 16px;
+        bottom: 10px;
+        width: 22px;
+        height: 1px;
+        background: rgba(148, 163, 184, 0.7);
       }
 
       .cases-3d-caption {
@@ -834,6 +922,9 @@
         .hero-flow-arrow {
           display: none;
         }
+        .cases-extra-row {
+          align-items: flex-start;
+        }
       }
 
       @media (max-width: 960px) {
@@ -871,6 +962,9 @@
         }
         .approach-grid {
           grid-template-columns: minmax(0, 1fr);
+        }
+        .cases-extra-row {
+          flex-direction: column;
         }
       }
     </style>
@@ -1003,22 +1097,6 @@
                 <span class="hero-flow-step">Step 3 — AI Strategy</span>
               </article>
             </div>
-
-            <!-- 2D AI robot illustration strip -->
-            <div class="hero-visual-extra">
-              <div class="hero-robot-icon" aria-hidden="true">
-                <div class="hero-robot-antenna"></div>
-                <div class="hero-robot-face">
-                  <span class="hero-robot-eye"></span>
-                  <span class="hero-robot-eye"></span>
-                </div>
-              </div>
-              <div class="hero-robot-text">
-                <strong>Your AI co-pilot for strategy.</strong>
-                I act as a bridge between leadership, product, data, and engineering—
-                turning complex inputs into a clear, realistic AI roadmap.
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -1050,38 +1128,59 @@
             </p>
           </article>
 
-          <div class="about-highlights">
-            <div class="highlight-card">
-              <span class="highlight-label">Experience</span>
-              <h3>7+ years in AI, data &amp; product</h3>
-              <p>
-                From hands-on ML and data pipelines to enterprise AI portfolios and
-                adoption strategies.
-              </p>
+          <div>
+            <div class="about-highlights">
+              <div class="highlight-card">
+                <span class="highlight-label">Experience</span>
+                <h3>7+ years in AI, data &amp; product</h3>
+                <p>
+                  From hands-on ML and data pipelines to enterprise AI portfolios and
+                  adoption strategies.
+                </p>
+              </div>
+              <div class="highlight-card">
+                <span class="highlight-label">Industries</span>
+                <h3>Retail, finance, energy &amp; more</h3>
+                <p>
+                  Global sportswear, European banking, energy utilities, insurance, and
+                  consumer services.
+                </p>
+              </div>
+              <div class="highlight-card">
+                <span class="highlight-label">AI Initiatives</span>
+                <h3>LLMs, ML, &amp; data products</h3>
+                <p>
+                  LLM search &amp; automation, recommendation engines, ICR, segmentation
+                  models, data marts, BI exposure.
+                </p>
+              </div>
+              <div class="highlight-card">
+                <span class="highlight-label">Author</span>
+                <h3>AI product &amp; ROI playbooks</h3>
+                <p>
+                  Author of <em>Strategic Product Management in an AI-driven World</em>
+                  and <em>AI to ROI</em>—practical guides for AI leaders.
+                </p>
+              </div>
             </div>
-            <div class="highlight-card">
-              <span class="highlight-label">Industries</span>
-              <h3>Retail, finance, energy &amp; more</h3>
-              <p>
-                Global sportswear, European banking, energy utilities, insurance, and
-                consumer services.
-              </p>
+          </div>
+        </div>
+
+        <!-- Moved co-pilot strip here -->
+        <div class="about-copilot-wrapper">
+          <div class="hero-visual-extra">
+            <div class="hero-robot-icon" aria-hidden="true">
+              <div class="hero-robot-antenna"></div>
+              <div class="hero-robot-face">
+                <span class="hero-robot-eye"></span>
+                <span class="hero-robot-eye"></span>
+              </div>
             </div>
-            <div class="highlight-card">
-              <span class="highlight-label">AI Initiatives</span>
-              <h3>LLMs, ML, &amp; data products</h3>
-              <p>
-                LLM search &amp; automation, recommendation engines, ICR, segmentation
-                models, data marts, BI exposure.
-              </p>
-            </div>
-            <div class="highlight-card">
-              <span class="highlight-label">Author</span>
-              <h3>AI product &amp; ROI playbooks</h3>
-              <p>
-                Author of <em>Strategic Product Management in an AI-driven World</em>
-                and <em>AI to ROI</em>—practical guides for AI leaders.
-              </p>
+            <div class="hero-robot-text">
+              <strong>Your AI co-pilot for strategy.</strong>
+              I act as a bridge between leadership, product, data, and engineering—
+              turning complex inputs into a clear, realistic AI roadmap and helping your
+              teams build confidence with AI, step by step.
             </div>
           </div>
         </div>
@@ -1267,10 +1366,23 @@
             <div class="roi-3d">
               <canvas id="roiCanvas"></canvas>
             </div>
-            <p class="cases-3d-caption">
-              A visual metaphor for moving from scattered experiments to a focused AI
-              portfolio with compounding ROI.
-            </p>
+            <div class="cases-extra-row">
+              <div class="cases-illustration" aria-hidden="true">
+                <div class="cases-building b1"></div>
+                <div class="cases-building b2"></div>
+                <div class="cases-building b3"></div>
+                <div class="cases-ai-chip">
+                  <span class="cases-ai-dot d1"></span>
+                  <span class="cases-ai-dot d2"></span>
+                </div>
+                <div class="cases-line"></div>
+              </div>
+              <p class="cases-3d-caption">
+                A visual metaphor for moving from scattered experiments to a focused AI
+                portfolio with compounding ROI—bringing together business performance
+                and applied AI.
+              </p>
+            </div>
           </div>
         </div>
       </section>
