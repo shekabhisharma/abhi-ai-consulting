@@ -386,7 +386,7 @@
         border-bottom: 4px solid transparent;
       }
 
-      /* Little animated dots on arrows */
+      /* animated dots on arrows */
       .hero-flow-arrow-dot {
         position: absolute;
         width: 6px;
@@ -460,10 +460,11 @@
         }
       }
 
-      /* 2D AI ROBOT STRIP – reused in ABOUT as co-pilot */
+      /* ROBOT / CO-PILOT STRIP (USED LATER IN ABOUT) */
 
-      .hero-visual-extra {
-        margin-top: 18px;
+      .copilot-strip {
+        margin-top: 24px;
+        max-width: 720px;
         border-radius: 16px;
         border: 1px solid rgba(148, 163, 184, 0.4);
         padding: 10px 12px;
@@ -478,7 +479,7 @@
         gap: 12px;
       }
 
-      .hero-robot-icon {
+      .copilot-icon {
         width: 46px;
         height: 46px;
         border-radius: 16px;
@@ -490,7 +491,7 @@
         box-shadow: 0 10px 25px rgba(37, 99, 235, 0.7);
       }
 
-      .hero-robot-face {
+      .copilot-face {
         width: 32px;
         height: 22px;
         border-radius: 10px;
@@ -501,7 +502,7 @@
         position: relative;
       }
 
-      .hero-robot-eye {
+      .copilot-eye {
         width: 7px;
         height: 7px;
         border-radius: 999px;
@@ -509,7 +510,7 @@
         box-shadow: 0 0 8px rgba(34, 211, 238, 0.9);
       }
 
-      .hero-robot-antenna {
+      .copilot-antenna {
         position: absolute;
         top: -8px;
         width: 10px;
@@ -519,7 +520,7 @@
         background: rgba(15, 23, 42, 0.96);
       }
 
-      .hero-robot-antenna::after {
+      .copilot-antenna::after {
         content: "";
         position: absolute;
         left: 50%;
@@ -530,13 +531,13 @@
         background: #e5e7eb;
       }
 
-      .hero-robot-text {
+      .copilot-text {
         font-size: 0.8rem;
         color: var(--text-muted);
         line-height: 1.5;
       }
 
-      .hero-robot-text strong {
+      .copilot-text strong {
         color: var(--text);
       }
 
@@ -609,11 +610,6 @@
         margin: 0;
         color: var(--text-muted);
         font-size: 0.85rem;
-      }
-
-      .about-copilot-wrapper {
-        margin-top: 24px;
-        max-width: 720px;
       }
 
       /* SERVICES */
@@ -707,20 +703,22 @@
         border: 1px solid var(--border-subtle);
       }
 
+      /* BUSINESS + AI ILLUSTRATION ROW */
+
       .cases-extra-row {
-        margin-top: 4px;
+        margin-top: 8px;
         display: flex;
         align-items: center;
         gap: 12px;
       }
 
       .cases-illustration {
-        width: 72px;
-        height: 60px;
+        min-width: 90px;
+        height: 70px;
         border-radius: 18px;
         background: radial-gradient(
             circle at top,
-            rgba(34, 211, 238, 0.3),
+            rgba(34, 211, 238, 0.35),
             transparent
           ),
           rgba(15, 23, 42, 0.96);
@@ -729,35 +727,49 @@
         box-sizing: border-box;
       }
 
+      .cases-illustration-label {
+        position: absolute;
+        top: 6px;
+        left: 8px;
+        right: 8px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.55rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--text-muted);
+        opacity: 0.85;
+      }
+
       .cases-building {
         position: absolute;
-        bottom: 8px;
-        width: 10px;
+        bottom: 10px;
+        width: 11px;
         border-radius: 4px 4px 2px 2px;
-        background: rgba(148, 163, 184, 0.9);
+        background: rgba(148, 163, 184, 0.95);
       }
 
       .cases-building.b1 {
         left: 8px;
-        height: 24px;
+        height: 26px;
         opacity: 0.7;
       }
       .cases-building.b2 {
-        left: 22px;
-        height: 32px;
+        left: 24px;
+        height: 34px;
       }
       .cases-building.b3 {
-        left: 38px;
-        height: 18px;
+        left: 40px;
+        height: 20px;
         opacity: 0.7;
       }
 
       .cases-ai-chip {
         position: absolute;
-        right: 6px;
-        top: 8px;
-        width: 20px;
-        height: 16px;
+        right: 10px;
+        top: 26px;
+        width: 24px;
+        height: 18px;
         border-radius: 6px;
         border: 1px solid #22d3ee;
         background: rgba(15, 23, 42, 0.96);
@@ -773,19 +785,19 @@
       }
 
       .cases-ai-dot.d1 {
-        left: 4px;
-        top: 4px;
+        left: 5px;
+        top: 5px;
       }
       .cases-ai-dot.d2 {
-        right: 4px;
-        bottom: 4px;
+        right: 5px;
+        bottom: 5px;
       }
 
       .cases-line {
         position: absolute;
-        right: 16px;
-        bottom: 10px;
-        width: 22px;
+        right: 18px;
+        bottom: 12px;
+        width: 26px;
         height: 1px;
         background: rgba(148, 163, 184, 0.7);
       }
@@ -1166,22 +1178,20 @@
           </div>
         </div>
 
-        <!-- Moved co-pilot strip here -->
-        <div class="about-copilot-wrapper">
-          <div class="hero-visual-extra">
-            <div class="hero-robot-icon" aria-hidden="true">
-              <div class="hero-robot-antenna"></div>
-              <div class="hero-robot-face">
-                <span class="hero-robot-eye"></span>
-                <span class="hero-robot-eye"></span>
-              </div>
+        <!-- CO-PILOT STRIP MOVED HERE -->
+        <div class="copilot-strip">
+          <div class="copilot-icon" aria-hidden="true">
+            <div class="copilot-antenna"></div>
+            <div class="copilot-face">
+              <span class="copilot-eye"></span>
+              <span class="copilot-eye"></span>
             </div>
-            <div class="hero-robot-text">
-              <strong>Your AI co-pilot for strategy.</strong>
-              I act as a bridge between leadership, product, data, and engineering—
-              turning complex inputs into a clear, realistic AI roadmap and helping your
-              teams build confidence with AI, step by step.
-            </div>
+          </div>
+          <div class="copilot-text">
+            <strong>Your AI co-pilot for strategy.</strong>
+            I sit between leadership, product, data, and engineering—helping you move
+            from “we should use AI” to a concrete, realistic roadmap your teams can
+            execute on.
           </div>
         </div>
       </section>
@@ -1366,8 +1376,13 @@
             <div class="roi-3d">
               <canvas id="roiCanvas"></canvas>
             </div>
+            <!-- Business + AI illustration + caption -->
             <div class="cases-extra-row">
               <div class="cases-illustration" aria-hidden="true">
+                <div class="cases-illustration-label">
+                  <span>Business 🏢</span>
+                  <span>AI 🤖</span>
+                </div>
                 <div class="cases-building b1"></div>
                 <div class="cases-building b2"></div>
                 <div class="cases-building b3"></div>
@@ -1727,7 +1742,7 @@
         // ROI rotation
         roiGroup.rotation.y += 0.002;
 
-        // Render all scenes
+        // Render scenes
         bgRenderer.render(bgScene, bgCamera);
         roiRenderer.render(roiScene, roiCamera);
       }
