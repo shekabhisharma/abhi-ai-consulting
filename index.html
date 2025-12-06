@@ -987,32 +987,41 @@
             </p>
           </article>
 
-          <form class="card glass contact-form">
+          <form class="card glass contact-form" id="contactForm">
             <label class="field">
               <span>Name</span>
-              <input type="text" placeholder="Your name" />
+              <input id="nameInput" type="text" placeholder="Your name" />
             </label>
             <label class="field">
               <span>Work email</span>
-              <input type="email" placeholder="name@company.com" />
+              <input
+                id="emailInput"
+                type="email"
+                placeholder="name@company.com"
+              />
             </label>
             <label class="field">
               <span>Role</span>
-              <input type="text" placeholder="Head of Product, VP Strategy, etc." />
+              <input
+                id="roleInput"
+                type="text"
+                placeholder="Head of Product, VP Strategy, etc."
+              />
             </label>
             <label class="field">
               <span>What are you trying to achieve with AI?</span>
               <textarea
+                id="goalInput"
                 rows="4"
                 placeholder="Short description of your goals and challenges."
               ></textarea>
             </label>
-            <button class="btn-primary" type="button">
+            <button class="btn-primary" type="submit">
               Submit inquiry
             </button>
             <p class="form-footnote">
-              This form is a visual placeholder—connect it to your email, form backend,
-              or CRM.
+              This currently opens an email draft with your answers. You can later hook
+              it up to a form service or CRM.
             </p>
           </form>
         </div>
@@ -1027,11 +1036,12 @@
       </footer>
     </div>
 
-    <!-- THREE.JS SCRIPTS -->
-    <script type="module">
-      import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
-      import { OrbitControls } from "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+    <!-- THREE.JS LIBRARIES (non-module, works well on GitHub Pages) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
 
+    <!-- MAIN SCRIPT -->
+    <script>
       // Year
       document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -1043,6 +1053,38 @@
             target.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         });
+      });
+
+      // Contact form => mailto
+      const contactForm = document.getElementById("contactForm");
+      contactForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("nameInput").value.trim();
+        const email = document.getElementById("emailInput").value.trim();
+        const role = document.getElementById("roleInput").value.trim();
+        const goal = document.getElementById("goalInput").value.trim();
+
+        const subject = encodeURIComponent(
+          "AI consulting inquiry from " + (name || "website visitor")
+        );
+
+        const bodyLines = [
+          "Name: " + name,
+          "Work email: " + email,
+          "Role: " + role,
+          "",
+          "What I'm trying to achieve with AI:",
+          goal,
+          "",
+          "---",
+          "Sent via abhi-ai-consulting website.",
+        ];
+
+        const body = encodeURIComponent(bodyLines.join("\n"));
+
+        // TODO: replace with your real email address
+        const mailto = "mailto:ungiorno7@gmail.com?subject=" + subject + "&body=" + body;
+        window.location.href = mailto;
       });
 
       /* ========= HERO 3D SCENE ========= */
@@ -1235,14 +1277,14 @@
         roiGroup.add(capMesh);
       });
 
-      // Controls
-      const heroControls = new OrbitControls(heroCamera, heroCanvas);
+      // Controls (from OrbitControls script added above)
+      const heroControls = new THREE.OrbitControls(heroCamera, heroCanvas);
       heroControls.enableZoom = false;
       heroControls.enablePan = false;
       heroControls.enableDamping = true;
       heroControls.dampingFactor = 0.08;
 
-      const roiControls = new OrbitControls(roiCamera, roiCanvas);
+      const roiControls = new THREE.OrbitControls(roiCamera, roiCanvas);
       roiControls.enableZoom = false;
       roiControls.enablePan = false;
       roiControls.enableDamping = true;
@@ -1251,16 +1293,20 @@
       /* ========= RESIZE HANDLING ========= */
       function resizeHero() {
         const rect = heroContainer.getBoundingClientRect();
-        heroCamera.aspect = rect.width / rect.height;
+        const w = rect.width || heroContainer.clientWidth || 400;
+        const h = rect.height || heroContainer.clientHeight || 300;
+        heroCamera.aspect = w / h;
         heroCamera.updateProjectionMatrix();
-        heroRenderer.setSize(rect.width, rect.height);
+        heroRenderer.setSize(w, h);
       }
 
       function resizeRoi() {
         const rect = roiCanvas.getBoundingClientRect();
-        roiCamera.aspect = rect.width / rect.height;
+        const w = rect.width || roiCanvas.clientWidth || 400;
+        const h = rect.height || roiCanvas.clientHeight || 300;
+        roiCamera.aspect = w / h;
         roiCamera.updateProjectionMatrix();
-        roiRenderer.setSize(rect.width, rect.height);
+        roiRenderer.setSize(w, h);
       }
 
       function handleResize() {
@@ -1290,12 +1336,11 @@
           const z = Math.sin(t) * orbitRadius;
           const y = Math.sin(t * 0.7) * 0.4;
           node.position.set(x, y, z);
-          node.scale.setScalar(
-            heroHoveredNode === node ? 0.38 : 0.28
-          );
+          node.scale.setScalar(heroHoveredNode === node ? 0.38 : 0.28);
         });
 
         // Raycasting for hero
+        const heroRaycaster = new THREE.Raycaster();
         heroRaycaster.setFromCamera(heroPointer, heroCamera);
         const intersects = heroRaycaster.intersectObjects(orbitNodes, false);
 
@@ -1323,6 +1368,7 @@
         roiRenderer.render(roiScene, roiCamera);
       }
 
+      const heroPointer = new THREE.Vector2(0, 0);
       animate();
     </script>
   </body>
