@@ -256,6 +256,32 @@
         position: relative;
       }
 
+      /* BRAIN PICTURE ROW */
+
+      .hero-brain {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0 14px;
+      }
+
+      .hero-brain-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at 30% 0, #22d3ee, #4f46e5);
+        box-shadow: 0 0 16px rgba(129, 140, 248, 0.7);
+        font-size: 1.3rem;
+      }
+
+      .hero-brain-text {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
       /* 2D FLOW VISUAL */
 
       .hero-flow {
@@ -460,7 +486,7 @@
         }
       }
 
-      /* ROBOT / CO-PILOT STRIP (USED LATER IN ABOUT) */
+      /* ROBOT / CO-PILOT STRIP (ABOUT) */
 
       .copilot-strip {
         margin-top: 24px;
@@ -689,120 +715,107 @@
         color: var(--text-muted);
       }
 
-      .cases-3d-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .roi-3d {
-        width: 100%;
-        height: 280px;
+      .cases-visual {
         border-radius: var(--radius-xl);
-        overflow: hidden;
         border: 1px solid var(--border-subtle);
-      }
-
-      /* BUSINESS + AI ILLUSTRATION ROW */
-
-      .cases-extra-row {
-        margin-top: 8px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .cases-illustration {
-        min-width: 90px;
-        height: 70px;
-        border-radius: 18px;
+        padding: 18px 18px 16px;
         background: radial-gradient(
             circle at top,
-            rgba(34, 211, 238, 0.35),
+            rgba(34, 211, 238, 0.2),
             transparent
           ),
           rgba(15, 23, 42, 0.96);
-        position: relative;
-        padding: 6px 8px;
-        box-sizing: border-box;
+        box-shadow: var(--shadow-soft);
+        display: flex;
+        gap: 18px;
+        align-items: flex-end;
       }
 
-      .cases-illustration-label {
-        position: absolute;
-        top: 6px;
-        left: 8px;
-        right: 8px;
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.55rem;
+      .cases-chart {
+        flex: 1;
+      }
+
+      .cases-chart-label {
+        font-size: 0.7rem;
         text-transform: uppercase;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
         color: var(--text-muted);
+        margin-bottom: 6px;
+      }
+
+      .cases-chart-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        height: 70px;
+        margin-bottom: 4px;
+      }
+
+      .cases-chart-bar {
+        flex: 1;
+        border-radius: 6px 6px 2px 2px;
+        background: linear-gradient(180deg, #22d3ee, #1d4ed8);
         opacity: 0.85;
       }
 
-      .cases-building {
-        position: absolute;
-        bottom: 10px;
-        width: 11px;
-        border-radius: 4px 4px 2px 2px;
-        background: rgba(148, 163, 184, 0.95);
+      .cases-chart-bar.b1 {
+        height: 28%;
+      }
+      .cases-chart-bar.b2 {
+        height: 52%;
+      }
+      .cases-chart-bar.b3 {
+        height: 68%;
+      }
+      .cases-chart-bar.b4 {
+        height: 88%;
       }
 
-      .cases-building.b1 {
-        left: 8px;
-        height: 26px;
-        opacity: 0.7;
+      .cases-chart-axis {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        display: flex;
+        justify-content: space-between;
       }
-      .cases-building.b2 {
-        left: 24px;
+
+      .cases-robot {
+        min-width: 82px;
+        align-self: stretch;
+        border-radius: 18px;
+        padding: 10px 10px 12px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: radial-gradient(
+            circle at top,
+            rgba(168, 85, 247, 0.35),
+            transparent
+          ),
+          rgba(15, 23, 42, 0.98);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .cases-robot-icon {
+        width: 34px;
         height: 34px;
-      }
-      .cases-building.b3 {
-        left: 40px;
-        height: 20px;
-        opacity: 0.7;
-      }
-
-      .cases-ai-chip {
-        position: absolute;
-        right: 10px;
-        top: 26px;
-        width: 24px;
-        height: 18px;
-        border-radius: 6px;
-        border: 1px solid #22d3ee;
-        background: rgba(15, 23, 42, 0.96);
-        box-shadow: 0 0 12px rgba(34, 211, 238, 0.7);
+        border-radius: 12px;
+        background: radial-gradient(circle at 30% 0, #22d3ee, #4f46e5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        box-shadow: 0 0 14px rgba(59, 130, 246, 0.8);
       }
 
-      .cases-ai-dot {
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        border-radius: 999px;
-        background: #22d3ee;
+      .cases-robot-text {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        text-align: center;
       }
 
-      .cases-ai-dot.d1 {
-        left: 5px;
-        top: 5px;
-      }
-      .cases-ai-dot.d2 {
-        right: 5px;
-        bottom: 5px;
-      }
-
-      .cases-line {
-        position: absolute;
-        right: 18px;
-        bottom: 12px;
-        width: 26px;
-        height: 1px;
-        background: rgba(148, 163, 184, 0.7);
-      }
-
-      .cases-3d-caption {
+      .cases-caption {
+        margin-top: 10px;
         font-size: 0.82rem;
         color: var(--text-muted);
       }
@@ -934,9 +947,6 @@
         .hero-flow-arrow {
           display: none;
         }
-        .cases-extra-row {
-          align-items: flex-start;
-        }
       }
 
       @media (max-width: 960px) {
@@ -960,6 +970,10 @@
         .hero-section {
           padding-top: 82px;
         }
+        .cases-visual {
+          flex-direction: column;
+          align-items: flex-start;
+        }
       }
 
       @media (max-width: 640px) {
@@ -974,9 +988,6 @@
         }
         .approach-grid {
           grid-template-columns: minmax(0, 1fr);
-        }
-        .cases-extra-row {
-          flex-direction: column;
         }
       }
     </style>
@@ -1013,6 +1024,16 @@
               from AI hype to shipped AI products with clear roadmaps, governed
               portfolios, and measurable ROI.
             </p>
+
+            <!-- Brain picture row -->
+            <div class="hero-brain">
+              <div class="hero-brain-icon">🧠</div>
+              <p class="hero-brain-text">
+                Applying practical AI thinking to real business problems and product
+                portfolios.
+              </p>
+            </div>
+
             <p class="hero-body">
               I sit between business, product, and engineering—turning vague AI ideas
               into prioritized use cases, data-ready foundations, and pilots that
@@ -1162,7 +1183,7 @@
                 <span class="highlight-label">AI Initiatives</span>
                 <h3>LLMs, ML, &amp; data products</h3>
                 <p>
-                  LLM search &amp; automation, recommendation engines, ICR, segmentation
+                  LLM search &amp; automation, recommendation engines, OCR, segmentation
                   models, data marts, BI exposure.
                 </p>
               </div>
@@ -1178,7 +1199,7 @@
           </div>
         </div>
 
-        <!-- CO-PILOT STRIP MOVED HERE -->
+        <!-- CO-PILOT STRIP -->
         <div class="copilot-strip">
           <div class="copilot-icon" aria-hidden="true">
             <div class="copilot-antenna"></div>
@@ -1360,7 +1381,6 @@
                 solution to automate document-heavy processes. The result: higher
                 throughput, improved compliance, and reduced manual errors.
               </p>
-
             </article>
             <article class="case-card card">
               <span class="badge">Energy</span>
@@ -1373,32 +1393,37 @@
             </article>
           </div>
 
-          <div class="cases-3d-wrapper">
-            <div class="roi-3d">
-              <canvas id="roiCanvas"></canvas>
-            </div>
-            <!-- Business + AI illustration + caption -->
-            <div class="cases-extra-row">
-              <div class="cases-illustration" aria-hidden="true">
-                <div class="cases-illustration-label">
-                  <span>Business 🏢</span>
-                  <span>AI 🤖</span>
+          <!-- Business barplot (sales) + AI robot -->
+          <div>
+            <div class="cases-visual">
+              <div class="cases-chart" aria-hidden="true">
+                <div class="cases-chart-label">Business sales over time</div>
+                <div class="cases-chart-bars">
+                  <div class="cases-chart-bar b1"></div>
+                  <div class="cases-chart-bar b2"></div>
+                  <div class="cases-chart-bar b3"></div>
+                  <div class="cases-chart-bar b4"></div>
                 </div>
-                <div class="cases-building b1"></div>
-                <div class="cases-building b2"></div>
-                <div class="cases-building b3"></div>
-                <div class="cases-ai-chip">
-                  <span class="cases-ai-dot d1"></span>
-                  <span class="cases-ai-dot d2"></span>
+                <div class="cases-chart-axis">
+                  <span>Q1</span>
+                  <span>Q2</span>
+                  <span>Q3</span>
+                  <span>Q4</span>
                 </div>
-                <div class="cases-line"></div>
               </div>
-              <p class="cases-3d-caption">
-                A visual metaphor for moving from scattered experiments to a focused AI
-                portfolio with compounding ROI—bringing together business performance
-                and applied AI.
-              </p>
+              <div class="cases-robot">
+                <div class="cases-robot-icon">🤖</div>
+                <div class="cases-robot-text">
+                  AI as a partner that reads signals, optimizes decisions, and compounds
+                  business results.
+                </div>
+              </div>
             </div>
+            <p class="cases-caption">
+              A visual metaphor for moving from scattered experiments to a focused AI
+              portfolio with compounding ROI—bringing together business performance and
+              applied AI.
+            </p>
           </div>
         </div>
       </section>
@@ -1624,99 +1649,10 @@
       const particles = new THREE.Points(particleGeo, particleMat);
       bgScene.add(particles);
 
-      /* ========= ROI 3D SCENE ========= */
-      const roiCanvas = document.getElementById("roiCanvas");
-      const roiScene = new THREE.Scene();
-      roiScene.background = new THREE.Color("#020617");
-      const roiCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-      roiCamera.position.set(4, 3, 6);
-
-      const roiRenderer = new THREE.WebGLRenderer({
-        canvas: roiCanvas,
-        antialias: true,
-      });
-      roiRenderer.setPixelRatio(window.devicePixelRatio || 1);
-
-      const roiAmbient = new THREE.AmbientLight(0xffffff, 0.6);
-      roiScene.add(roiAmbient);
-      const roiDir = new THREE.DirectionalLight(0xffffff, 1.2);
-      roiDir.position.set(4, 8, 4);
-      roiScene.add(roiDir);
-
-      const roiGroup = new THREE.Group();
-      roiScene.add(roiGroup);
-
-      const roiBaseGeo = new THREE.CircleGeometry(3, 64);
-      const roiBaseMat = new THREE.MeshStandardMaterial({
-        color: 0x020617,
-        transparent: true,
-        opacity: 0.9,
-        metalness: 0.6,
-        roughness: 0.1,
-        side: THREE.DoubleSide,
-      });
-      const roiBaseMesh = new THREE.Mesh(roiBaseGeo, roiBaseMat);
-      roiBaseMesh.rotation.x = -Math.PI / 2;
-      roiBaseMesh.position.y = -0.01;
-      roiGroup.add(roiBaseMesh);
-
-      const roiBars = [
-        { label: "Automation", height: 1.8 },
-        { label: "Search", height: 1.4 },
-        { label: "ICR", height: 1.6 },
-        { label: "Marketing", height: 1.2 },
-      ];
-
-      roiBars.forEach((bar, i) => {
-        const angle = (i / roiBars.length) * Math.PI * 2;
-        const radius = 1.3;
-        const x = Math.cos(angle) * radius;
-        const z = Math.sin(angle) * radius;
-
-        const barGeo = new THREE.BoxGeometry(0.45, bar.height, 0.45);
-        const barMat = new THREE.MeshStandardMaterial({
-          color: 0x22d3ee,
-          transparent: true,
-          opacity: 0.25,
-          metalness: 0.8,
-          roughness: 0.1,
-        });
-        const barMesh = new THREE.Mesh(barGeo, barMat);
-        barMesh.position.set(x, bar.height / 2, z);
-        roiGroup.add(barMesh);
-
-        const capGeo = new THREE.SphereGeometry(0.18, 32, 32);
-        const capMat = new THREE.MeshStandardMaterial({
-          color: 0x22d3ee,
-          emissive: 0x22d3ee,
-          emissiveIntensity: 1.4,
-          metalness: 0.3,
-          roughness: 0.2,
-        });
-        const capMesh = new THREE.Mesh(capGeo, capMat);
-        capMesh.position.set(x, bar.height + 0.12, z);
-        roiGroup.add(capMesh);
-      });
-
-      /* ========= RESIZE HANDLING ========= */
-      function resizeRoi() {
-        const rect = roiCanvas.getBoundingClientRect();
-        const w = rect.width || roiCanvas.clientWidth || 400;
-        const h = rect.height || roiCanvas.clientHeight || 300;
-        roiCamera.aspect = w / h;
-        roiCamera.updateProjectionMatrix();
-        roiRenderer.setSize(w, h);
-      }
-
-      function resizeBg() {
+      function handleResize() {
         bgCamera.aspect = window.innerWidth / window.innerHeight;
         bgCamera.updateProjectionMatrix();
         bgRenderer.setSize(window.innerWidth, window.innerHeight);
-      }
-
-      function handleResize() {
-        resizeRoi();
-        resizeBg();
       }
 
       window.addEventListener("resize", handleResize);
@@ -1727,7 +1663,6 @@
 
       function animate() {
         requestAnimationFrame(animate);
-        const elapsed = clock.getElapsedTime();
 
         // Background particles movement
         const attr = particleGeo.attributes.position;
@@ -1740,12 +1675,8 @@
         attr.needsUpdate = true;
         particles.rotation.y += 0.0006;
 
-        // ROI rotation
-        roiGroup.rotation.y += 0.002;
-
-        // Render scenes
+        // Render scene
         bgRenderer.render(bgScene, bgCamera);
-        roiRenderer.render(roiScene, roiCamera);
       }
 
       animate();
