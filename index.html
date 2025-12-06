@@ -351,6 +351,15 @@
         margin-top: 4px;
       }
 
+      .hero-flow-step {
+        margin-top: 6px;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--text-muted);
+        opacity: 0.85;
+      }
+
       .hero-flow-arrow {
         display: flex;
         align-items: center;
@@ -449,6 +458,86 @@
         50% {
           transform: translateY(-3px);
         }
+      }
+
+      /* 2D AI ROBOT STRIP UNDER FLOW */
+
+      .hero-visual-extra {
+        margin-top: 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        padding: 10px 12px;
+        background: radial-gradient(
+            circle at left,
+            rgba(34, 211, 238, 0.22),
+            transparent
+          ),
+          rgba(15, 23, 42, 0.96);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .hero-robot-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #22d3ee, #4f46e5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.7);
+      }
+
+      .hero-robot-face {
+        width: 32px;
+        height: 22px;
+        border-radius: 10px;
+        background: rgba(15, 23, 42, 0.96);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: relative;
+      }
+
+      .hero-robot-eye {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #22d3ee;
+        box-shadow: 0 0 8px rgba(34, 211, 238, 0.9);
+      }
+
+      .hero-robot-antenna {
+        position: absolute;
+        top: -8px;
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        border: 2px solid #e5e7eb;
+        background: rgba(15, 23, 42, 0.96);
+      }
+
+      .hero-robot-antenna::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 6px;
+        background: #e5e7eb;
+      }
+
+      .hero-robot-text {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      .hero-robot-text strong {
+        color: var(--text);
       }
 
       /* ABOUT */
@@ -857,6 +946,7 @@
                   Inputs: scattered use cases, slide decks, data silos, stakeholder
                   requests.
                 </p>
+                <span class="hero-flow-step">Step 1 — Client</span>
               </article>
 
               <!-- Arrow -->
@@ -883,6 +973,7 @@
                   Activities: portfolio mapping, use case scoring, AI/ML &amp; LLM
                   solution design, data readiness checks.
                 </p>
+                <span class="hero-flow-step">Step 2 — Abhi + AI</span>
               </article>
 
               <!-- Arrow -->
@@ -909,7 +1000,24 @@
                   Outputs: roadmap, use case playbook, pilot designs, adoption &amp;
                   measurement plan.
                 </p>
+                <span class="hero-flow-step">Step 3 — AI Strategy</span>
               </article>
+            </div>
+
+            <!-- 2D AI robot illustration strip -->
+            <div class="hero-visual-extra">
+              <div class="hero-robot-icon" aria-hidden="true">
+                <div class="hero-robot-antenna"></div>
+                <div class="hero-robot-face">
+                  <span class="hero-robot-eye"></span>
+                  <span class="hero-robot-eye"></span>
+                </div>
+              </div>
+              <div class="hero-robot-text">
+                <strong>Your AI co-pilot for strategy.</strong>
+                I act as a bridge between leadership, product, data, and engineering—
+                turning complex inputs into a clear, realistic AI roadmap.
+              </div>
             </div>
           </div>
         </div>
