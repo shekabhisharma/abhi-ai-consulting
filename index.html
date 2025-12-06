@@ -53,6 +53,19 @@
 
       .page {
         min-height: 100vh;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* 3D BACKGROUND CANVAS */
+
+      #bgCanvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
       }
 
       /* NAV */
@@ -60,7 +73,7 @@
       .nav {
         position: sticky;
         top: 0;
-        z-index: 40;
+        z-index: 5;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -270,6 +283,7 @@
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.2s ease-out;
+        max-width: 260px;
       }
 
       .hero-tooltip strong {
@@ -606,6 +620,9 @@
     </style>
   </head>
   <body>
+    <!-- MOVING 3D BACKGROUND -->
+    <canvas id="bgCanvas"></canvas>
+
     <div class="page">
       <!-- NAV -->
       <header class="nav">
@@ -1086,7 +1103,57 @@
         window.location.href = mailto;
       });
 
-      /* ========= HERO 3D SCENE ========= */
+      /* ========= 3D BACKGROUND (DATA PARTICLES) ========= */
+      const bgCanvas = document.getElementById("bgCanvas");
+      const bgScene = new THREE.Scene();
+      bgScene.fog = new THREE.Fog(0x020617, 6, 16);
+
+      const bgCamera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        100
+      );
+      bgCamera.position.set(0, 0, 10);
+
+      const bgRenderer = new THREE.WebGLRenderer({
+        canvas: bgCanvas,
+        antialias: true,
+      });
+      bgRenderer.setPixelRatio(window.devicePixelRatio || 1);
+      bgRenderer.setSize(window.innerWidth, window.innerHeight);
+
+      const bgAmbient = new THREE.AmbientLight(0xffffff, 0.5);
+      bgScene.add(bgAmbient);
+
+      // Particles
+      const particleCount = 650;
+      const particleGeo = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3;
+        positions[i3 + 0] = (Math.random() - 0.5) * 20; // x
+        positions[i3 + 1] = (Math.random() - 0.5) * 10; // y
+        positions[i3 + 2] = (Math.random() - 0.5) * 14; // z
+      }
+
+      particleGeo.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      );
+
+      const particleMat = new THREE.PointsMaterial({
+        color: 0x22d3ee,
+        size: 0.06,
+        transparent: true,
+        opacity: 0.55,
+      });
+
+      const particles = new THREE.Points(particleGeo, particleMat);
+      bgScene.add(particles);
+
+      /* ========= HERO 3D SCENE (AI → BUSINESS IMPACT) ========= */
       const heroContainer = document.getElementById("hero-3d-container");
       const heroCanvas = document.getElementById("heroCanvas");
       const heroTooltip = document.getElementById("heroTooltip");
@@ -1094,7 +1161,7 @@
       const heroScene = new THREE.Scene();
       heroScene.background = new THREE.Color("#020617");
       const heroCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-      heroCamera.position.set(0, 0, 6);
+      heroCamera.position.set(0, 1.2, 6);
 
       const heroRenderer = new THREE.WebGLRenderer({
         canvas: heroCanvas,
@@ -1105,93 +1172,113 @@
       const heroAmbient = new THREE.AmbientLight(0xffffff, 0.5);
       heroScene.add(heroAmbient);
       const heroPoint1 = new THREE.PointLight(0xffffff, 1.2);
-      heroPoint1.position.set(5, 5, 5);
+      heroPoint1.position.set(5, 6, 6);
       heroScene.add(heroPoint1);
-      const heroPoint2 = new THREE.PointLight(0x22d3ee, 0.8);
-      heroPoint2.position.set(-5, -5, -3);
+      const heroPoint2 = new THREE.PointLight(0x22d3ee, 0.7);
+      heroPoint2.position.set(-4, -4, -3);
       heroScene.add(heroPoint2);
 
       const heroGroup = new THREE.Group();
       heroScene.add(heroGroup);
 
-      // Data core
-      const coreGeo = new THREE.SphereGeometry(1.1, 64, 64);
+      // Base platform
+      const baseGeo = new THREE.CylinderGeometry(2.8, 2.8, 0.2, 64);
+      const baseMat = new THREE.MeshStandardMaterial({
+        color: 0x020617,
+        metalness: 0.7,
+        roughness: 0.2,
+        transparent: true,
+        opacity: 0.95,
+      });
+      const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+      baseMesh.position.y = -1.2;
+      heroGroup.add(baseMesh);
+
+      // AI Core (central prism)
+      const coreGeo = new THREE.BoxGeometry(1.2, 2.2, 1.2);
       const coreMat = new THREE.MeshStandardMaterial({
         color: 0x0f172a,
         emissive: 0x2563eb,
-        emissiveIntensity: 1.2,
-        metalness: 0.3,
+        emissiveIntensity: 1.25,
+        metalness: 0.4,
         roughness: 0.1,
+        transparent: true,
+        opacity: 0.95,
       });
       const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      coreMesh.position.y = 0.1;
       heroGroup.add(coreMesh);
 
-      // Ring
-      const ringGeo = new THREE.RingGeometry(1.4, 1.7, 64);
-      const ringMat = new THREE.MeshBasicMaterial({
-        color: 0x0ea5e9,
+      // Horizontal glowing ring
+      const coreRingGeo = new THREE.TorusGeometry(1.7, 0.05, 16, 80);
+      const coreRingMat = new THREE.MeshBasicMaterial({
+        color: 0x22d3ee,
         transparent: true,
-        opacity: 0.2,
-        side: THREE.DoubleSide,
+        opacity: 0.45,
       });
-      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-      ringMesh.rotation.x = Math.PI / 2;
-      heroGroup.add(ringMesh);
+      const coreRing = new THREE.Mesh(coreRingGeo, coreRingMat);
+      coreRing.rotation.x = Math.PI / 2;
+      coreRing.position.y = 0.15;
+      heroGroup.add(coreRing);
 
-      const orbitLabels = [
+      // Business impact bars
+      const heroBars = [];
+      const heroBarDefs = [
         {
-          label: "Strategy",
-          detail: "AI strategy & portfolio roadmapping.",
+          label: "Efficiency",
+          detail: "Automation that reduces manual work, cycle time, and cost.",
+          height: 1.6,
           color: 0x22d3ee,
         },
         {
-          label: "Use Cases",
-          detail: "Discovery & validation of practical AI use cases.",
+          label: "Revenue",
+          detail: "Better targeting, recommendations, and upsell opportunities.",
+          height: 2.0,
           color: 0xa855f7,
         },
         {
-          label: "Models",
-          detail: "ML & LLM solution design and evaluation.",
-          color: 0x38bdf8,
-        },
-        {
-          label: "Data & Platforms",
-          detail: "Data products, BI, and AI readiness.",
-          color: 0x4ade80,
-        },
-        {
-          label: "Adoption",
-          detail: "Change, enablement, and scaling what works.",
+          label: "Risk & Compliance",
+          detail: "Monitoring, controls, and guardrails to keep AI safe by design.",
+          height: 1.4,
           color: 0xf97316,
+        },
+        {
+          label: "Customer Experience",
+          detail: "Personalized journeys and support that feel effortless.",
+          height: 1.8,
+          color: 0x4ade80,
         },
       ];
 
-      const orbitNodes = [];
-      const orbitRadius = 2.3;
+      heroBarDefs.forEach((def, i) => {
+        const angle = (i / heroBarDefs.length) * Math.PI * 2 + Math.PI / 4;
+        const radius = 1.9;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
 
-      orbitLabels.forEach((item, index) => {
-        const nodeGeo = new THREE.SphereGeometry(0.28, 32, 32);
-        const nodeMat = new THREE.MeshStandardMaterial({
-          color: item.color,
-          emissive: item.color,
+        const barGeo = new THREE.BoxGeometry(0.55, def.height, 0.55);
+        const barMat = new THREE.MeshStandardMaterial({
+          color: def.color,
+          emissive: def.color,
           emissiveIntensity: 0.9,
-          metalness: 0.4,
+          metalness: 0.5,
           roughness: 0.2,
+          transparent: true,
+          opacity: 0.88,
         });
-        const nodeMesh = new THREE.Mesh(nodeGeo, nodeMat);
-        nodeMesh.userData = {
-          label: item.label,
-          detail: item.detail,
-          speed: 0.4 + index * 0.06,
-          index,
+        const barMesh = new THREE.Mesh(barGeo, barMat);
+        barMesh.position.set(x, -1.2 + def.height / 2, z);
+        barMesh.userData = {
+          label: def.label,
+          detail: def.detail,
         };
-        heroGroup.add(nodeMesh);
-        orbitNodes.push(nodeMesh);
+        heroGroup.add(barMesh);
+        heroBars.push(barMesh);
       });
 
       const heroRaycaster = new THREE.Raycaster();
       const heroPointer = new THREE.Vector2();
-      let heroHoveredNode = null;
+      let heroHoveredBar = null;
 
       function onHeroPointerMove(event) {
         const rect = heroCanvas.getBoundingClientRect();
@@ -1224,8 +1311,8 @@
       const roiGroup = new THREE.Group();
       roiScene.add(roiGroup);
 
-      const baseGeo = new THREE.CircleGeometry(3, 64);
-      const baseMat = new THREE.MeshStandardMaterial({
+      const roiBaseGeo = new THREE.CircleGeometry(3, 64);
+      const roiBaseMat = new THREE.MeshStandardMaterial({
         color: 0x020617,
         transparent: true,
         opacity: 0.9,
@@ -1233,20 +1320,20 @@
         roughness: 0.1,
         side: THREE.DoubleSide,
       });
-      const baseMesh = new THREE.Mesh(baseGeo, baseMat);
-      baseMesh.rotation.x = -Math.PI / 2;
-      baseMesh.position.y = -0.01;
-      roiGroup.add(baseMesh);
+      const roiBaseMesh = new THREE.Mesh(roiBaseGeo, roiBaseMat);
+      roiBaseMesh.rotation.x = -Math.PI / 2;
+      roiBaseMesh.position.y = -0.01;
+      roiGroup.add(roiBaseMesh);
 
-      const bars = [
+      const roiBars = [
         { label: "Automation", height: 1.8 },
         { label: "Search", height: 1.4 },
         { label: "ICR", height: 1.6 },
         { label: "Marketing", height: 1.2 },
       ];
 
-      bars.forEach((bar, i) => {
-        const angle = (i / bars.length) * Math.PI * 2;
+      roiBars.forEach((bar, i) => {
+        const angle = (i / roiBars.length) * Math.PI * 2;
         const radius = 1.3;
         const x = Math.cos(angle) * radius;
         const z = Math.sin(angle) * radius;
@@ -1295,9 +1382,16 @@
         roiRenderer.setSize(w, h);
       }
 
+      function resizeBg() {
+        bgCamera.aspect = window.innerWidth / window.innerHeight;
+        bgCamera.updateProjectionMatrix();
+        bgRenderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
       function handleResize() {
         resizeHero();
         resizeRoi();
+        resizeBg();
       }
 
       window.addEventListener("resize", handleResize);
@@ -1310,42 +1404,51 @@
         requestAnimationFrame(animate);
         const elapsed = clock.getElapsedTime();
 
-        // Hero group rotation
-        heroGroup.rotation.y += 0.0015;
+        // Background particles movement
+        const attr = particleGeo.attributes.position;
+        for (let i = 0; i < attr.count; i++) {
+          let y = attr.getY(i);
+          y -= 0.01;
+          if (y < -5) y = 5;
+          attr.setY(i, y);
+        }
+        attr.needsUpdate = true;
+        particles.rotation.y += 0.0006;
 
-        // Orbit nodes
-        orbitNodes.forEach((node) => {
-          const speed = node.userData.speed;
-          const index = node.userData.index;
-          const t = elapsed * speed + index;
-          const x = Math.cos(t) * orbitRadius;
-          const z = Math.sin(t) * orbitRadius;
-          const y = Math.sin(t * 0.7) * 0.4;
-          node.position.set(x, y, z);
-          node.scale.setScalar(heroHoveredNode === node ? 0.38 : 0.28);
-        });
+        // Hero group subtle rotation
+        heroGroup.rotation.y = elapsed * 0.15;
+        coreRing.rotation.y = elapsed * 0.4;
 
-        // Raycasting for hero
+        // Hero raycasting
         heroRaycaster.setFromCamera(heroPointer, heroCamera);
-        const intersects = heroRaycaster.intersectObjects(orbitNodes, false);
+        const intersects = heroRaycaster.intersectObjects(heroBars, false);
 
         if (intersects.length > 0) {
-          const node = intersects[0].object;
-          if (heroHoveredNode !== node) {
-            heroHoveredNode = node;
-            const data = node.userData;
+          const bar = intersects[0].object;
+          if (heroHoveredBar !== bar) {
+            heroHoveredBar = bar;
+            const data = bar.userData;
             heroTooltip.innerHTML =
               "<strong>" + data.label + ":</strong> " + data.detail;
             heroTooltip.style.opacity = "1";
           }
         } else {
-          heroHoveredNode = null;
+          heroHoveredBar = null;
           heroTooltip.style.opacity = "0";
         }
+
+        // Scale bars on hover
+        heroBars.forEach((bar) => {
+          const target = heroHoveredBar === bar ? 1.1 : 1.0;
+          const current = bar.scale.y;
+          bar.scale.y = current + (target - current) * 0.15;
+        });
 
         // ROI rotation
         roiGroup.rotation.y += 0.002;
 
+        // Render all scenes
+        bgRenderer.render(bgScene, bgCamera);
         heroRenderer.render(heroScene, heroCamera);
         roiRenderer.render(roiScene, roiCamera);
       }
