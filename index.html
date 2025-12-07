@@ -225,53 +225,19 @@
         color: var(--text);
       }
 
-      /* SECTIONS / JOURNEY LAYOUT */
+      /* BASE SECTION STYLES */
 
       .section {
-        padding: 72px 6vw;
+        padding: 0; /* padding handled by scene-inner for 4D scroll */
       }
 
       .hero-section {
-        padding-top: 96px;
+        padding-top: 32px;
       }
 
       .journey-section {
         position: relative;
         min-height: 100vh;
-      }
-
-      .journey-section::before {
-        content: "";
-        position: absolute;
-        inset: auto auto 10% 55%;
-        width: 260px;
-        height: 260px;
-        background: radial-gradient(
-          circle,
-          rgba(34, 211, 238, 0.12),
-          transparent 70%
-        );
-        opacity: 0.7;
-        pointer-events: none;
-        z-index: -1;
-      }
-
-      .journey-section:nth-of-type(2)::before {
-        inset: 5% 10% auto auto;
-        background: radial-gradient(
-          circle,
-          rgba(168, 85, 247, 0.16),
-          transparent 70%
-        );
-      }
-
-      .journey-section:nth-of-type(3)::before {
-        inset: auto 12% 5% auto;
-        background: radial-gradient(
-          circle,
-          rgba(34, 197, 94, 0.18),
-          transparent 70%
-        );
       }
 
       .section-header {
@@ -294,6 +260,54 @@
         letter-spacing: 0.18em;
         font-size: 0.75rem;
         color: var(--accent);
+      }
+
+      /* 4D SCROLL SCENES (PINNED + OVERLAPPING) */
+
+      .scroll-scene {
+        position: relative;
+        height: 260vh; /* taller than viewport to create a "walk through" */
+        z-index: 1;
+      }
+
+      .scene-inner {
+        position: sticky;
+        top: 14vh;
+        min-height: 72vh;
+        border-radius: 28px;
+        border: 1px solid rgba(15, 23, 42, 0.92);
+        background: radial-gradient(
+            circle at top left,
+            rgba(15, 23, 42, 0.98),
+            rgba(2, 6, 23, 0.96)
+          ),
+          rgba(15, 23, 42, 0.96);
+        box-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
+        overflow: hidden;
+        padding: 72px 6vw;
+        will-change: transform, opacity;
+      }
+
+      .scene-inner::before {
+        content: "";
+        position: absolute;
+        inset: -20%;
+        background: radial-gradient(
+          circle at top right,
+          rgba(34, 211, 238, 0.16),
+          transparent 60%
+        );
+        opacity: 0.6;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .hero-scene .scene-inner::before {
+        background: radial-gradient(
+          circle at top left,
+          rgba(168, 85, 247, 0.18),
+          transparent 60%
+        );
       }
 
       /* HERO */
@@ -1090,12 +1104,6 @@
         opacity: 0.8;
       }
 
-      /* PARALLAX LAYERS */
-
-      .parallax-layer {
-        will-change: transform;
-      }
-
       /* REVEAL-ON-SCROLL ANIMATIONS */
 
       .has-js .reveal-on-scroll {
@@ -1131,6 +1139,23 @@
         .nav-links {
           display: none;
         }
+
+        .scroll-scene {
+          height: auto;
+        }
+
+        .scene-inner {
+          position: static;
+          border-radius: 0;
+          box-shadow: none;
+          background: transparent;
+          padding: 56px 5vw;
+        }
+
+        .hero-section {
+          padding-top: 16px;
+        }
+
         .hero-grid,
         .about-grid,
         .services-grid,
@@ -1145,9 +1170,6 @@
         .approach-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
-        .hero-section {
-          padding-top: 82px;
-        }
         .cases-visual {
           flex-direction: column;
           align-items: flex-start;
@@ -1155,8 +1177,8 @@
       }
 
       @media (max-width: 640px) {
-        .section {
-          padding: 56px 5vw;
+        .scene-inner {
+          padding: 48px 5vw;
         }
         .hero-grid {
           gap: 26px;
@@ -1179,8 +1201,18 @@
           animation: none;
         }
 
-        .parallax-layer {
+        .scroll-scene {
+          height: auto;
+        }
+
+        .scene-inner {
+          position: static;
           transform: none !important;
+          opacity: 1 !important;
+          border-radius: 0;
+          background: transparent;
+          box-shadow: none;
+          padding: 72px 6vw;
         }
 
         .has-js .reveal-on-scroll {
@@ -1211,10 +1243,7 @@
       </header>
 
       <!-- STICKY TIMELINE NAV -->
-      <aside
-        class="timeline-nav"
-        aria-label="Career journey navigation"
-      >
+      <aside class="timeline-nav" aria-label="Career journey navigation">
         <div class="timeline-nav-inner">
           <div class="timeline-line"></div>
 
@@ -1287,560 +1316,552 @@
       </aside>
 
       <!-- HERO (NOW) -->
-      <section id="hero" class="section hero-section journey-section">
-        <div class="hero-grid">
-          <div class="hero-text reveal-on-scroll">
-            <p class="eyebrow">AI PRODUCT OWNER &amp; CONSULTANT</p>
-            <h1 class="hero-title">Abhi – AI Product Owner &amp; Consultant</h1>
-            <p class="hero-subtitle">
-              I help product and leadership teams in retail, finance, and energy move
-              from AI hype to shipped AI products with clear roadmaps, governed
-              portfolios, and measurable ROI.
-            </p>
+      <section id="hero" class="scroll-scene hero-scene">
+        <div class="section hero-section journey-section scene-inner reveal-on-scroll">
+          <div class="hero-grid">
+            <div class="hero-text">
+              <p class="eyebrow">AI PRODUCT OWNER &amp; CONSULTANT</p>
+              <h1 class="hero-title">Abhi – AI Product Owner &amp; Consultant</h1>
+              <p class="hero-subtitle">
+                I help product and leadership teams in retail, finance, and energy move
+                from AI hype to shipped AI products with clear roadmaps, governed
+                portfolios, and measurable ROI.
+              </p>
 
-            <!-- Big brain icon centered between paragraphs -->
-            <div class="hero-brain">
-              <div class="hero-brain-icon">🧠</div>
-            </div>
-
-            <p class="hero-body">
-              I sit between business, product, and engineering—turning vague AI ideas
-              into prioritized use cases, data-ready foundations, and pilots that
-              actually scale. From LLM-powered search and document automation to
-              recommendation engines, I focus on business impact, not demos.
-            </p>
-            <div class="hero-ctas">
-              <button class="btn-primary" data-scroll="#contact">
-                Book a discovery call
-              </button>
-              <button class="btn-secondary" data-scroll="#cases">
-                View case studies
-              </button>
-            </div>
-            <p class="hero-reassurance">
-              30–45 minute video call • No obligation • For Heads of Product, Strategy,
-              Data &amp; AI
-            </p>
-          </div>
-
-          <!-- 2D FLOW VISUAL: Client → Abhi + AI → AI Strategy -->
-          <div class="hero-3d-wrapper reveal-on-scroll">
-            <div class="hero-flow">
-              <!-- Client Problems -->
-              <article
-                class="hero-flow-card hero-flow-card--float-left"
-                aria-label="Client problems"
-              >
-                <div class="hero-flow-icon hero-flow-icon--left">👤</div>
-                <span class="hero-flow-label">Client problems</span>
-                <h3 class="hero-flow-title">Unclear AI direction</h3>
-                <p class="hero-flow-body">
-                  “We need to use AI” but with too many ideas, legacy systems, and no
-                  clear path from experiment to impact.
-                </p>
-                <p class="hero-flow-meta">
-                  Inputs: scattered use cases, slide decks, data silos, stakeholder
-                  requests.
-                </p>
-                <span class="hero-flow-step">Step 1 — Client</span>
-              </article>
-
-              <!-- Arrow -->
-              <div class="hero-flow-arrow" aria-hidden="true">
-                <div class="hero-flow-arrow-inner">
-                  <div class="hero-flow-arrow-dot"></div>
-                  <div class="hero-flow-arrow-dot dot-2"></div>
-                </div>
+              <!-- Big brain icon centered between paragraphs -->
+              <div class="hero-brain">
+                <div class="hero-brain-icon">🧠</div>
               </div>
 
-              <!-- Abhi + AI -->
-              <article
-                class="hero-flow-card hero-flow-card--center hero-flow-card--float-center"
-                aria-label="Abhi and AI expertise"
-              >
-                <div class="hero-flow-icon hero-flow-icon--center">A</div>
-                <span class="hero-flow-label">Abhi + AI product</span>
-                <h3 class="hero-flow-title">Translate noise into a plan</h3>
-                <p class="hero-flow-body">
-                  I work with product, data, and leadership teams to select the right
-                  use cases, design AI products, and define how success is measured.
-                </p>
-                <p class="hero-flow-meta">
-                  Activities: portfolio mapping, use case scoring, AI/ML &amp; LLM
-                  solution design, data readiness checks.
-                </p>
-                <span class="hero-flow-step">Step 2 — Abhi + AI</span>
-              </article>
-
-              <!-- Arrow -->
-              <div class="hero-flow-arrow" aria-hidden="true">
-                <div class="hero-flow-arrow-inner">
-                  <div class="hero-flow-arrow-dot"></div>
-                  <div class="hero-flow-arrow-dot dot-2"></div>
-                </div>
+              <p class="hero-body">
+                I sit between business, product, and engineering—turning vague AI ideas
+                into prioritized use cases, data-ready foundations, and pilots that
+                actually scale. From LLM-powered search and document automation to
+                recommendation engines, I focus on business impact, not demos.
+              </p>
+              <div class="hero-ctas">
+                <button class="btn-primary" data-scroll="#contact">
+                  Book a discovery call
+                </button>
+                <button class="btn-secondary" data-scroll="#cases">
+                  View case studies
+                </button>
               </div>
+              <p class="hero-reassurance">
+                30–45 minute video call • No obligation • For Heads of Product, Strategy,
+                Data &amp; AI
+              </p>
+            </div>
 
-              <!-- AI Strategy Output -->
-              <article
-                class="hero-flow-card hero-flow-card--right hero-flow-card--float-right"
-                aria-label="AI strategy output"
-              >
-                <div class="hero-flow-icon hero-flow-icon--right">📊</div>
-                <span class="hero-flow-label">AI strategy &amp; delivery</span>
-                <h3 class="hero-flow-title">Structured AI roadmap</h3>
-                <p class="hero-flow-body">
-                  A prioritized set of AI initiatives with owners, timelines, data
-                  requirements, and KPIs—built to actually ship.
-                </p>
-                <p class="hero-flow-meta">
-                  Outputs: roadmap, use case playbook, pilot designs, adoption &amp;
-                  measurement plan.
-                </p>
-                <span class="hero-flow-step">Step 3 — AI Strategy</span>
-              </article>
+            <!-- 2D FLOW VISUAL: Client → Abhi + AI → AI Strategy -->
+            <div class="hero-3d-wrapper">
+              <div class="hero-flow">
+                <!-- Client Problems -->
+                <article
+                  class="hero-flow-card hero-flow-card--float-left"
+                  aria-label="Client problems"
+                >
+                  <div class="hero-flow-icon hero-flow-icon--left">👤</div>
+                  <span class="hero-flow-label">Client problems</span>
+                  <h3 class="hero-flow-title">Unclear AI direction</h3>
+                  <p class="hero-flow-body">
+                    “We need to use AI” but with too many ideas, legacy systems, and no
+                    clear path from experiment to impact.
+                  </p>
+                  <p class="hero-flow-meta">
+                    Inputs: scattered use cases, slide decks, data silos, stakeholder
+                    requests.
+                  </p>
+                  <span class="hero-flow-step">Step 1 — Client</span>
+                </article>
+
+                <!-- Arrow -->
+                <div class="hero-flow-arrow" aria-hidden="true">
+                  <div class="hero-flow-arrow-inner">
+                    <div class="hero-flow-arrow-dot"></div>
+                    <div class="hero-flow-arrow-dot dot-2"></div>
+                  </div>
+                </div>
+
+                <!-- Abhi + AI -->
+                <article
+                  class="hero-flow-card hero-flow-card--center hero-flow-card--float-center"
+                  aria-label="Abhi and AI expertise"
+                >
+                  <div class="hero-flow-icon hero-flow-icon--center">A</div>
+                  <span class="hero-flow-label">Abhi + AI product</span>
+                  <h3 class="hero-flow-title">Translate noise into a plan</h3>
+                  <p class="hero-flow-body">
+                    I work with product, data, and leadership teams to select the right
+                    use cases, design AI products, and define how success is measured.
+                  </p>
+                  <p class="hero-flow-meta">
+                    Activities: portfolio mapping, use case scoring, AI/ML &amp; LLM
+                    solution design, data readiness checks.
+                  </p>
+                  <span class="hero-flow-step">Step 2 — Abhi + AI</span>
+                </article>
+
+                <!-- Arrow -->
+                <div class="hero-flow-arrow" aria-hidden="true">
+                  <div class="hero-flow-arrow-inner">
+                    <div class="hero-flow-arrow-dot"></div>
+                    <div class="hero-flow-arrow-dot dot-2"></div>
+                  </div>
+                </div>
+
+                <!-- AI Strategy Output -->
+                <article
+                  class="hero-flow-card hero-flow-card--right hero-flow-card--float-right"
+                  aria-label="AI strategy output"
+                >
+                  <div class="hero-flow-icon hero-flow-icon--right">📊</div>
+                  <span class="hero-flow-label">AI strategy &amp; delivery</span>
+                  <h3 class="hero-flow-title">Structured AI roadmap</h3>
+                  <p class="hero-flow-body">
+                    A prioritized set of AI initiatives with owners, timelines, data
+                    requirements, and KPIs—built to actually ship.
+                  </p>
+                  <p class="hero-flow-meta">
+                    Outputs: roadmap, use case playbook, pilot designs, adoption &amp;
+                    measurement plan.
+                  </p>
+                  <span class="hero-flow-step">Step 3 — AI Strategy</span>
+                </article>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ABOUT (CAREER JOURNEY STACK: OVERVIEW → ADIDAS → BEFORE THAT → POSITIONING) -->
-      <section
-        id="about"
-        class="section journey-section parallax-layer"
-        data-parallax-speed="-0.04"
-      >
-        <div class="section-header reveal-on-scroll">
-          <p class="eyebrow">ABOUT</p>
-          <h2 class="section-title">From AI delivery to AI strategy &amp; ROI</h2>
-        </div>
-        <div class="about-grid reveal-on-scroll">
-          <!-- Left: chronological journey using existing sentences -->
-          <article class="card glass journey-stack">
-            <div class="journey-card">
-              <p class="body">
-                I’m Abhi, a Data &amp; AI Product Owner and consultant with over seven
-                years of experience turning AI ideas into shipped products across
-                industries like global sportswear retail, banking, energy, insurance, and
-                consumer services.
-              </p>
-            </div>
-            <div class="journey-card">
-              <p class="body">
-                At Adidas, I’ve led enterprise AI initiatives from LLM-powered document
-                automation and multimodal internal search to EU-wide AI adoption
-                strategies.
-              </p>
-            </div>
-            <div class="journey-card">
-              <p class="body">
-                Before that, I delivered AI and data science projects for clients such as
-                a major European bank and a leading energy provider, building solutions
-                for document intelligence, targeted marketing, and analytics pipelines.
-              </p>
-            </div>
-            <div class="journey-card">
-              <p class="body">
-                My sweet spot is translating strategy into clear AI roadmaps, aligning
-                stakeholders, and defining the metrics that prove AI value. Whether we
-                work on GenAI, classic ML, or data foundations, I keep the conversation
-                grounded in risk, feasibility, and impact.
-              </p>
-            </div>
-          </article>
-
-          <!-- Right: highlights (unchanged text, supports journey) -->
-          <div>
-            <div class="about-highlights">
-              <div class="highlight-card">
-                <span class="highlight-label">Experience</span>
-                <h3>7+ years in AI, data &amp; product</h3>
-                <p>
-                  From hands-on ML and data pipelines to enterprise AI portfolios and
-                  adoption strategies.
-                </p>
-              </div>
-              <div class="highlight-card">
-                <span class="highlight-label">Industries</span>
-                <h3>Retail, finance, energy &amp; more</h3>
-                <p>
-                  Global sportswear, European banking, energy utilities, insurance, and
+      <section id="about" class="scroll-scene">
+        <div class="section journey-section scene-inner">
+          <div class="section-header reveal-on-scroll">
+            <p class="eyebrow">ABOUT</p>
+            <h2 class="section-title">From AI delivery to AI strategy &amp; ROI</h2>
+          </div>
+          <div class="about-grid reveal-on-scroll">
+            <!-- Left: chronological journey using existing sentences -->
+            <article class="card glass journey-stack">
+              <div class="journey-card">
+                <p class="body">
+                  I’m Abhi, a Data &amp; AI Product Owner and consultant with over seven
+                  years of experience turning AI ideas into shipped products across
+                  industries like global sportswear retail, banking, energy, insurance, and
                   consumer services.
                 </p>
               </div>
-              <div class="highlight-card">
-                <span class="highlight-label">AI Initiatives</span>
-                <h3>LLMs, ML, &amp; data products</h3>
-                <p>
-                  LLM search &amp; automation, recommendation engines, OCR, segmentation
-                  models, data marts, BI exposure.
+              <div class="journey-card">
+                <p class="body">
+                  At Adidas, I’ve led enterprise AI initiatives from LLM-powered document
+                  automation and multimodal internal search to EU-wide AI adoption
+                  strategies.
                 </p>
               </div>
-              <div class="highlight-card">
-                <span class="highlight-label">Author</span>
-                <h3>AI product &amp; ROI playbooks</h3>
-                <p>
-                  Author of <em>Strategic Product Management in an AI-driven World</em>
-                  and <em>AI to ROI</em>—practical guides for AI leaders.
+              <div class="journey-card">
+                <p class="body">
+                  Before that, I delivered AI and data science projects for clients such as
+                  a major European bank and a leading energy provider, building solutions
+                  for document intelligence, targeted marketing, and analytics pipelines.
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
+              <div class="journey-card">
+                <p class="body">
+                  My sweet spot is translating strategy into clear AI roadmaps, aligning
+                  stakeholders, and defining the metrics that prove AI value. Whether we
+                  work on GenAI, classic ML, or data foundations, I keep the conversation
+                  grounded in risk, feasibility, and impact.
+                </p>
+              </div>
+            </article>
 
-        <!-- CO-PILOT STRIP -->
-        <div class="copilot-strip reveal-on-scroll">
-          <div class="copilot-icon" aria-hidden="true">
-            <div class="copilot-antenna"></div>
-            <div class="copilot-face">
-              <span class="copilot-eye"></span>
-              <span class="copilot-eye"></span>
+            <!-- Right: highlights -->
+            <div>
+              <div class="about-highlights">
+                <div class="highlight-card">
+                  <span class="highlight-label">Experience</span>
+                  <h3>7+ years in AI, data &amp; product</h3>
+                  <p>
+                    From hands-on ML and data pipelines to enterprise AI portfolios and
+                    adoption strategies.
+                  </p>
+                </div>
+                <div class="highlight-card">
+                  <span class="highlight-label">Industries</span>
+                  <h3>Retail, finance, energy &amp; more</h3>
+                  <p>
+                    Global sportswear, European banking, energy utilities, insurance, and
+                    consumer services.
+                  </p>
+                </div>
+                <div class="highlight-card">
+                  <span class="highlight-label">AI Initiatives</span>
+                  <h3>LLMs, ML, &amp; data products</h3>
+                  <p>
+                    LLM search &amp; automation, recommendation engines, OCR, segmentation
+                    models, data marts, BI exposure.
+                  </p>
+                </div>
+                <div class="highlight-card">
+                  <span class="highlight-label">Author</span>
+                  <h3>AI product &amp; ROI playbooks</h3>
+                  <p>
+                    Author of <em>Strategic Product Management in an AI-driven World</em>
+                    and <em>AI to ROI</em>—practical guides for AI leaders.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="copilot-text">
-            <strong>Your AI co-pilot for strategy.</strong>
-            I sit between leadership, product, data, and engineering—helping you move
-            from “we should use AI” to a concrete, realistic roadmap your teams can
-            execute on.
+
+          <!-- CO-PILOT STRIP -->
+          <div class="copilot-strip reveal-on-scroll">
+            <div class="copilot-icon" aria-hidden="true">
+              <div class="copilot-antenna"></div>
+              <div class="copilot-face">
+                <span class="copilot-eye"></span>
+                <span class="copilot-eye"></span>
+              </div>
+            </div>
+            <div class="copilot-text">
+              <strong>Your AI co-pilot for strategy.</strong>
+              I sit between leadership, product, data, and engineering—helping you move
+              from “we should use AI” to a concrete, realistic roadmap your teams can
+              execute on.
+            </div>
           </div>
         </div>
       </section>
 
       <!-- CASE STUDIES (PROJECTS ACROSS ROLES) -->
-      <section
-        id="cases"
-        class="section journey-section parallax-layer"
-        data-parallax-speed="-0.06"
-      >
-        <div class="section-header reveal-on-scroll">
-          <p class="eyebrow">CASE STUDIES</p>
-          <h2 class="section-title">From idea to shipped AI products</h2>
-        </div>
-        <div class="cases-grid reveal-on-scroll">
-          <div class="cases-list">
-            <article class="case-card card">
-              <span class="badge">Retail / Sportswear</span>
-              <h3>LLM-powered product data automation</h3>
-              <p>
-                At a global sportswear brand, I led a product data automation initiative
-                using LLMs to extract structured attributes from PPT/PDF documents. This
-                reduced manual effort, improved consistency, and accelerated time-to-
-                market for new products.
-              </p>
-            </article>
-            <article class="case-card card">
-              <span class="badge">Retail / Merchandising</span>
-              <h3>Multimodal AI search for trend-to-product discovery</h3>
-              <p>
-                Designed a multimodal internal search experience connecting global trends
-                to product catalog data. This helped merchandising and product teams
-                discover relevant items faster and make better assortment decisions.
-              </p>
-            </article>
-            <article class="case-card card">
-              <span class="badge">Banking</span>
-              <h3>Document intelligence &amp; OCR for high-volume workflows</h3>
-              <p>
-                In banking, I led the delivery of an optical character recognition (OCR)
-                solution to automate document-heavy processes. The result: higher
-                throughput, improved compliance, and reduced manual errors.
-              </p>
-            </article>
-            <article class="case-card card">
-              <span class="badge">Energy</span>
-              <h3>Targeted retention campaigns using ML</h3>
-              <p>
-                For an energy provider, I supported ML models for behavioral segmentation
-                and personalized vouchers, increasing campaign efficiency and customer
-                retention.
-              </p>
-            </article>
+      <section id="cases" class="scroll-scene">
+        <div class="section journey-section scene-inner">
+          <div class="section-header reveal-on-scroll">
+            <p class="eyebrow">CASE STUDIES</p>
+            <h2 class="section-title">From idea to shipped AI products</h2>
           </div>
-
-          <!-- Business barplot (sales) + AI robot -->
-          <div>
-            <div class="cases-visual">
-              <div class="cases-chart" aria-hidden="true">
-                <div class="cases-chart-label">Business sales over time</div>
-                <div class="cases-chart-bars">
-                  <div class="cases-chart-bar b1"></div>
-                  <div class="cases-chart-bar b2"></div>
-                  <div class="cases-chart-bar b3"></div>
-                  <div class="cases-chart-bar b4"></div>
-                </div>
-                <div class="cases-chart-axis">
-                  <span>Q1</span>
-                  <span>Q2</span>
-                  <span>Q3</span>
-                  <span>Q4</span>
-                </div>
-              </div>
-              <div class="cases-robot">
-                <div class="cases-robot-icon">🤖</div>
-                <div class="cases-robot-text">
-                  AI as a partner that reads signals, optimizes decisions, and compounds
-                  business results.
-                </div>
-              </div>
+          <div class="cases-grid reveal-on-scroll">
+            <div class="cases-list">
+              <article class="case-card card">
+                <span class="badge">Retail / Sportswear</span>
+                <h3>LLM-powered product data automation</h3>
+                <p>
+                  At a global sportswear brand, I led a product data automation initiative
+                  using LLMs to extract structured attributes from PPT/PDF documents. This
+                  reduced manual effort, improved consistency, and accelerated time-to-
+                  market for new products.
+                </p>
+              </article>
+              <article class="case-card card">
+                <span class="badge">Retail / Merchandising</span>
+                <h3>Multimodal AI search for trend-to-product discovery</h3>
+                <p>
+                  Designed a multimodal internal search experience connecting global trends
+                  to product catalog data. This helped merchandising and product teams
+                  discover relevant items faster and make better assortment decisions.
+                </p>
+              </article>
+              <article class="case-card card">
+                <span class="badge">Banking</span>
+                <h3>Document intelligence &amp; OCR for high-volume workflows</h3>
+                <p>
+                  In banking, I led the delivery of an optical character recognition (OCR)
+                  solution to automate document-heavy processes. The result: higher
+                  throughput, improved compliance, and reduced manual errors.
+                </p>
+              </article>
+              <article class="case-card card">
+                <span class="badge">Energy</span>
+                <h3>Targeted retention campaigns using ML</h3>
+                <p>
+                  For an energy provider, I supported ML models for behavioral segmentation
+                  and personalized vouchers, increasing campaign efficiency and customer
+                  retention.
+                </p>
+              </article>
             </div>
-            <p class="cases-caption">
-              A visual metaphor for moving from scattered experiments to a focused AI
-              portfolio with compounding ROI—bringing together business performance and
-              applied AI.
-            </p>
+
+            <!-- Business barplot (sales) + AI robot -->
+            <div>
+              <div class="cases-visual">
+                <div class="cases-chart" aria-hidden="true">
+                  <div class="cases-chart-label">Business sales over time</div>
+                  <div class="cases-chart-bars">
+                    <div class="cases-chart-bar b1"></div>
+                    <div class="cases-chart-bar b2"></div>
+                    <div class="cases-chart-bar b3"></div>
+                    <div class="cases-chart-bar b4"></div>
+                  </div>
+                  <div class="cases-chart-axis">
+                    <span>Q1</span>
+                    <span>Q2</span>
+                    <span>Q3</span>
+                    <span>Q4</span>
+                  </div>
+                </div>
+                <div class="cases-robot">
+                  <div class="cases-robot-icon">🤖</div>
+                  <div class="cases-robot-text">
+                    AI as a partner that reads signals, optimizes decisions, and compounds
+                    business results.
+                  </div>
+                </div>
+              </div>
+              <p class="cases-caption">
+                A visual metaphor for moving from scattered experiments to a focused AI
+                portfolio with compounding ROI—bringing together business performance and
+                applied AI.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- SERVICES (CURRENT CONSULTING OFFER) -->
-      <section
-        id="services"
-        class="section journey-section parallax-layer"
-        data-parallax-speed="-0.08"
-      >
-        <div class="section-header reveal-on-scroll">
-          <p class="eyebrow">SERVICES</p>
-          <h2 class="section-title">What I do</h2>
-          <p class="section-subtitle">
-            I work with teams who are under pressure to “do something with AI” and need
-            a clear path from idea to shipped product.
-          </p>
-        </div>
+      <section id="services" class="scroll-scene">
+        <div class="section journey-section scene-inner">
+          <div class="section-header reveal-on-scroll">
+            <p class="eyebrow">SERVICES</p>
+            <h2 class="section-title">What I do</h2>
+            <p class="section-subtitle">
+              I work with teams who are under pressure to “do something with AI” and need
+              a clear path from idea to shipped product.
+            </p>
+          </div>
 
-        <div class="services-grid reveal-on-scroll">
-          <article class="card service-card">
-            <h3>AI strategy &amp; portfolio roadmapping</h3>
-            <p class="service-for">
-              For Heads of Product, Strategy, or Data &amp; AI who need a coherent AI
-              plan.
-            </p>
-            <ul class="service-list">
-              <li>Clarify business goals and constraints.</li>
-              <li>Map existing initiatives and identify gaps.</li>
-              <li>Prioritize use cases by impact, feasibility, and data readiness.</li>
-              <li>
-                Define an AI roadmap with governance, ownership, and success metrics.
-              </li>
-            </ul>
-            <p class="service-outcome">
-              A prioritized, realistic AI portfolio aligned with strategic objectives—
-              without the pilot graveyard.
-            </p>
-          </article>
+          <div class="services-grid reveal-on-scroll">
+            <article class="card service-card">
+              <h3>AI strategy &amp; portfolio roadmapping</h3>
+              <p class="service-for">
+                For Heads of Product, Strategy, or Data &amp; AI who need a coherent AI
+                plan.
+              </p>
+              <ul class="service-list">
+                <li>Clarify business goals and constraints.</li>
+                <li>Map existing initiatives and identify gaps.</li>
+                <li>Prioritize use cases by impact, feasibility, and data readiness.</li>
+                <li>
+                  Define an AI roadmap with governance, ownership, and success metrics.
+                </li>
+              </ul>
+              <p class="service-outcome">
+                A prioritized, realistic AI portfolio aligned with strategic objectives—
+                without the pilot graveyard.
+              </p>
+            </article>
 
-          <article class="card service-card">
-            <h3>AI use case discovery &amp; validation</h3>
-            <p class="service-for">
-              For teams exploring AI or GenAI but unsure where to start.
-            </p>
-            <ul class="service-list">
-              <li>Facilitated workshops across business, product, and tech.</li>
-              <li>Discovery of high-value, practical AI use cases.</li>
-              <li>Feasibility checks across data, systems, and compliance.</li>
-              <li>Lean pilots that focus on learning and ROI.</li>
-            </ul>
-            <p class="service-outcome">
-              A shortlist of validated use cases with clear value hypotheses and lean
-              pilot designs.
-            </p>
-          </article>
+            <article class="card service-card">
+              <h3>AI use case discovery &amp; validation</h3>
+              <p class="service-for">
+                For teams exploring AI or GenAI but unsure where to start.
+              </p>
+              <ul class="service-list">
+                <li>Facilitated workshops across business, product, and tech.</li>
+                <li>Discovery of high-value, practical AI use cases.</li>
+                <li>Feasibility checks across data, systems, and compliance.</li>
+                <li>Lean pilots that focus on learning and ROI.</li>
+              </ul>
+              <p class="service-outcome">
+                A shortlist of validated use cases with clear value hypotheses and lean
+                pilot designs.
+              </p>
+            </article>
 
-          <article class="card service-card">
-            <h3>GenAI &amp; LLM product design</h3>
-            <p class="service-for">
-              For organizations wanting to apply LLMs to search, documents, and internal
-              productivity.
-            </p>
-            <ul class="service-list">
-              <li>
-                Identify where LLMs add real value (search, Q&amp;A, summarization,
-                extraction).
-              </li>
-              <li>Design end-to-end LLM product flows and user journeys.</li>
-              <li>Support architecture, retrieval, and integration decisions.</li>
-              <li>Define guardrails, evaluation, and quality standards.</li>
-            </ul>
-            <p class="service-outcome">
-              Concrete LLM-powered product concepts that move beyond demos and plug into
-              real workflows.
-            </p>
-          </article>
+            <article class="card service-card">
+              <h3>GenAI &amp; LLM product design</h3>
+              <p class="service-for">
+                For organizations wanting to apply LLMs to search, documents, and internal
+                productivity.
+              </p>
+              <ul class="service-list">
+                <li>
+                  Identify where LLMs add real value (search, Q&amp;A, summarization,
+                  extraction).
+                </li>
+                <li>Design end-to-end LLM product flows and user journeys.</li>
+                <li>Support architecture, retrieval, and integration decisions.</li>
+                <li>Define guardrails, evaluation, and quality standards.</li>
+              </ul>
+              <p class="service-outcome">
+                Concrete LLM-powered product concepts that move beyond demos and plug into
+                real workflows.
+              </p>
+            </article>
 
-          <article class="card service-card">
-            <h3>Data products, BI &amp; AI readiness</h3>
-            <p class="service-for">
-              For teams with messy data needing a pragmatic AI foundation.
-            </p>
-            <ul class="service-list">
-              <li>Assess data, pipelines, marts, and BI exposure.</li>
-              <li>
-                Define core data products to support your highest value AI use cases.
-              </li>
-              <li>
-                Design KPI and reporting frameworks for non-technical stakeholders.
-              </li>
-              <li>
-                Improve how data is surfaced and used by business teams day-to-day.
-              </li>
-            </ul>
-            <p class="service-outcome">
-              A practical AI readiness plan and data product roadmap that supports both
-              BI and AI.
-            </p>
-          </article>
+            <article class="card service-card">
+              <h3>Data products, BI &amp; AI readiness</h3>
+              <p class="service-for">
+                For teams with messy data needing a pragmatic AI foundation.
+              </p>
+              <ul class="service-list">
+                <li>Assess data, pipelines, marts, and BI exposure.</li>
+                <li>
+                  Define core data products to support your highest value AI use cases.
+                </li>
+                <li>
+                  Design KPI and reporting frameworks for non-technical stakeholders.
+                </li>
+                <li>
+                  Improve how data is surfaced and used by business teams day-to-day.
+                </li>
+              </ul>
+              <p class="service-outcome">
+                A practical AI readiness plan and data product roadmap that supports both
+                BI and AI.
+              </p>
+            </article>
 
-          <article class="card service-card">
-            <h3>AI adoption &amp; change</h3>
-            <p class="service-for">
-              For organizations with AI tools that are underused or fragmented.
-            </p>
-            <ul class="service-list">
-              <li>Analyze how AI tools and data products are currently used.</li>
-              <li>Identify adoption blockers in UX, incentives, and processes.</li>
-              <li>Create enablement plans, playbooks, and training.</li>
-              <li>Embed AI into day-to-day operations, not just slideware.</li>
-            </ul>
-            <p class="service-outcome">
-              Higher adoption, visible impact of AI investments, and a repeatable
-              playbook for future rollouts.
-            </p>
-          </article>
+            <article class="card service-card">
+              <h3>AI adoption &amp; change</h3>
+              <p class="service-for">
+                For organizations with AI tools that are underused or fragmented.
+              </p>
+              <ul class="service-list">
+                <li>Analyze how AI tools and data products are currently used.</li>
+                <li>Identify adoption blockers in UX, incentives, and processes.</li>
+                <li>Create enablement plans, playbooks, and training.</li>
+                <li>Embed AI into day-to-day operations, not just slideware.</li>
+              </ul>
+              <p class="service-outcome">
+                Higher adoption, visible impact of AI investments, and a repeatable
+                playbook for future rollouts.
+              </p>
+            </article>
 
-          <article class="card service-card">
-            <h3>Fractional AI product ownership</h3>
-            <p class="service-for">
-              For companies that need an experienced AI Product Owner, part-time.
-            </p>
-            <ul class="service-list">
-              <li>Hands-on product ownership for key AI initiatives.</li>
-              <li>Backlog prioritization and stakeholder alignment.</li>
-              <li>Bridge between leadership, engineering, and operations.</li>
-              <li>Mentor internal product or data leads to take over.</li>
-            </ul>
-            <p class="service-outcome">
-              Momentum on critical AI projects and a professionalized AI product
-              function.
-            </p>
-          </article>
+            <article class="card service-card">
+              <h3>Fractional AI product ownership</h3>
+              <p class="service-for">
+                For companies that need an experienced AI Product Owner, part-time.
+              </p>
+              <ul class="service-list">
+                <li>Hands-on product ownership for key AI initiatives.</li>
+                <li>Backlog prioritization and stakeholder alignment.</li>
+                <li>Bridge between leadership, engineering, and operations.</li>
+                <li>Mentor internal product or data leads to take over.</li>
+              </ul>
+              <p class="service-outcome">
+                Momentum on critical AI projects and a professionalized AI product
+                function.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
       <!-- APPROACH -->
-      <section
-        id="approach"
-        class="section journey-section parallax-layer"
-        data-parallax-speed="-0.1"
-      >
-        <div class="section-header reveal-on-scroll">
-          <p class="eyebrow">APPROACH</p>
-          <h2 class="section-title">How we work together</h2>
-        </div>
-        <div class="approach-grid reveal-on-scroll">
-          <article class="card approach-card">
-            <span class="approach-step">01</span>
-            <h3>Clarify the real problem</h3>
-            <p>
-              We align on business goals, constraints, and existing initiatives—before
-              talking about models or tools.
-            </p>
-          </article>
-          <article class="card approach-card">
-            <span class="approach-step">02</span>
-            <h3>Prioritize &amp; design use cases</h3>
-            <p>
-              We identify and score use cases by impact, feasibility, and data
-              readiness, then design lean experiments.
-            </p>
-          </article>
-          <article class="card approach-card">
-            <span class="approach-step">03</span>
-            <h3>Deliver &amp; adopt</h3>
-            <p>
-              We support delivery with clear product ownership and adoption plans so AI
-              products don’t die at pilot stage.
-            </p>
-          </article>
-          <article class="card approach-card">
-            <span class="approach-step">04</span>
-            <h3>Measure &amp; scale</h3>
-            <p>
-              We define KPIs and feedback loops, then scale what works into a governed
-              AI portfolio.
-            </p>
-          </article>
+      <section id="approach" class="scroll-scene">
+        <div class="section journey-section scene-inner">
+          <div class="section-header reveal-on-scroll">
+            <p class="eyebrow">APPROACH</p>
+            <h2 class="section-title">How we work together</h2>
+          </div>
+          <div class="approach-grid reveal-on-scroll">
+            <article class="card approach-card">
+              <span class="approach-step">01</span>
+              <h3>Clarify the real problem</h3>
+              <p>
+                We align on business goals, constraints, and existing initiatives—before
+                talking about models or tools.
+              </p>
+            </article>
+            <article class="card approach-card">
+              <span class="approach-step">02</span>
+              <h3>Prioritize &amp; design use cases</h3>
+              <p>
+                We identify and score use cases by impact, feasibility, and data
+                readiness, then design lean experiments.
+              </p>
+            </article>
+            <article class="card approach-card">
+              <span class="approach-step">03</span>
+              <h3>Deliver &amp; adopt</h3>
+              <p>
+                We support delivery with clear product ownership and adoption plans so AI
+                products don’t die at pilot stage.
+              </p>
+            </article>
+            <article class="card approach-card">
+              <span class="approach-step">04</span>
+              <h3>Measure &amp; scale</h3>
+              <p>
+                We define KPIs and feedback loops, then scale what works into a governed
+                AI portfolio.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
       <!-- CONTACT -->
-      <section
-        id="contact"
-        class="section journey-section parallax-layer"
-        data-parallax-speed="-0.12"
-      >
-        <div class="section-header reveal-on-scroll">
-          <p class="eyebrow">CONTACT</p>
-          <h2 class="section-title">Book a discovery call</h2>
-          <p class="section-subtitle">
-            Ideal for Heads of Product, Strategy, Data &amp; AI who want to move from AI
-            experimentation to measurable results.
-          </p>
-        </div>
-        <div class="contact-grid reveal-on-scroll">
-          <article class="card glass contact-card">
-            <p class="body">
-              In a 30–45 minute call, we’ll discuss your current AI initiatives, the
-              pressures you’re under, and what “good” would look like in 6–12 months.
-              I’ll share honest feedback on where AI can help, where it can’t, and what
-              a pragmatic path forward might look like.
+      <section id="contact" class="scroll-scene">
+        <div class="section journey-section scene-inner">
+          <div class="section-header reveal-on-scroll">
+            <p class="eyebrow">CONTACT</p>
+            <h2 class="section-title">Book a discovery call</h2>
+            <p class="section-subtitle">
+              Ideal for Heads of Product, Strategy, Data &amp; AI who want to move from AI
+              experimentation to measurable results.
             </p>
-            <ul class="contact-list">
-              <li>Clarify your AI portfolio and priorities.</li>
-              <li>Spot quick wins and high-risk traps.</li>
-              <li>Decide whether we should work together—or not.</li>
-            </ul>
-            <p class="contact-note">
-              You can reach me via email at
-              <a href="mailto:ungiorno7@gmail.com">ungiorno7@gmail.com</a>
-              or plug in your Calendly link here.
-            </p>
-          </article>
+          </div>
+          <div class="contact-grid reveal-on-scroll">
+            <article class="card glass contact-card">
+              <p class="body">
+                In a 30–45 minute call, we’ll discuss your current AI initiatives, the
+                pressures you’re under, and what “good” would look like in 6–12 months.
+                I’ll share honest feedback on where AI can help, where it can’t, and what
+                a pragmatic path forward might look like.
+              </p>
+              <ul class="contact-list">
+                <li>Clarify your AI portfolio and priorities.</li>
+                <li>Spot quick wins and high-risk traps.</li>
+                <li>Decide whether we should work together—or not.</li>
+              </ul>
+              <p class="contact-note">
+                You can reach me via email at
+                <a href="mailto:ungiorno7@gmail.com">ungiorno7@gmail.com</a>
+                or plug in your Calendly link here.
+              </p>
+            </article>
 
-          <form class="card glass contact-form" id="contactForm">
-            <label class="field">
-              <span>Name</span>
-              <input id="nameInput" type="text" placeholder="Your name" />
-            </label>
-            <label class="field">
-              <span>Work email</span>
-              <input
-                id="emailInput"
-                type="email"
-                placeholder="name@company.com"
-              />
-            </label>
-            <label class="field">
-              <span>Role</span>
-              <input
-                id="roleInput"
-                type="text"
-                placeholder="Head of Product, VP Strategy, etc."
-              />
-            </label>
-            <label class="field">
-              <span>What are you trying to achieve with AI?</span>
-              <textarea
-                id="goalInput"
-                rows="4"
-                placeholder="Short description of your goals and challenges."
-              ></textarea>
-            </label>
-            <button class="btn-primary" type="submit">
-              Submit inquiry
-            </button>
-            <p class="form-footnote">
-              This currently opens an email draft with your answers. You can later hook
-              it up to a form service or CRM.
-            </p>
-          </form>
+            <form class="card glass contact-form" id="contactForm">
+              <label class="field">
+                <span>Name</span>
+                <input id="nameInput" type="text" placeholder="Your name" />
+              </label>
+              <label class="field">
+                <span>Work email</span>
+                <input
+                  id="emailInput"
+                  type="email"
+                  placeholder="name@company.com"
+                />
+              </label>
+              <label class="field">
+                <span>Role</span>
+                <input
+                  id="roleInput"
+                  type="text"
+                  placeholder="Head of Product, VP Strategy, etc."
+                />
+              </label>
+              <label class="field">
+                <span>What are you trying to achieve with AI?</span>
+                <textarea
+                  id="goalInput"
+                  rows="4"
+                  placeholder="Short description of your goals and challenges."
+                ></textarea>
+              </label>
+              <button class="btn-primary" type="submit">
+                Submit inquiry
+              </button>
+              <p class="form-footnote">
+                This currently opens an email draft with your answers. You can later hook
+                it up to a form service or CRM.
+              </p>
+            </form>
+          </div>
         </div>
       </section>
 
@@ -1881,7 +1902,7 @@
         });
       });
 
-      // Contact form => mailto (unchanged)
+      // Contact form => mailto
       const contactForm = document.getElementById("contactForm");
       contactForm.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -1972,30 +1993,78 @@
         });
       }
 
-      /* ========= PARALLAX ON JOURNEY SECTIONS ========= */
+      /* ========= 4D SCROLL SCENES (PIN + OVERLAP) =========
+         Each .scroll-scene is taller than the viewport.
+         Its .scene-inner is sticky and:
+           - moves slightly on Y
+           - scales a bit
+           - fades out at the end of the scene
+         This creates the feeling of walking through stacked layers.
+      ===================================================== */
       if (!prefersReducedMotion) {
-        const parallaxEls = document.querySelectorAll("[data-parallax-speed]");
-        let latestScrollY = window.scrollY || window.pageYOffset;
-        let ticking = false;
+        const scenes = Array.from(document.querySelectorAll(".scroll-scene"));
 
-        function updateParallax() {
-          parallaxEls.forEach((el) => {
-            const speed = parseFloat(el.dataset.parallaxSpeed || "0");
-            const offset = latestScrollY * speed;
-            el.style.transform = "translateY(" + offset + "px)";
+        function updateScenes() {
+          const vh = window.innerHeight || 1;
+          const scrollY = window.scrollY || window.pageYOffset;
+
+          scenes.forEach((scene, index) => {
+            const inner = scene.querySelector(".scene-inner");
+            if (!inner) return;
+
+            const sceneTop = scene.offsetTop;
+            const sceneHeight = scene.offsetHeight;
+            const maxScroll = sceneHeight - vh;
+
+            if (maxScroll <= 0) {
+              inner.style.transform = "translate3d(0,0,0) scale(1)";
+              inner.style.opacity = 1;
+              return;
+            }
+
+            const rawProgress = (scrollY - sceneTop) / maxScroll;
+            const progress = Math.min(1, Math.max(0, rawProgress));
+
+            // Depth-based movement: later scenes move slightly more
+            const depthFactor = 1 + index * 0.15;
+
+            // Y movement: from slightly below to slightly above center
+            const translateY = (0.5 - progress) * 40 * depthFactor;
+
+            // Scale: subtle zoom in as you "enter" the scene
+            const scale = 0.94 + progress * 0.08;
+
+            // Fade out near the end of the scene so next scene can overlap
+            const fadeOutStart = 0.7;
+            let opacity = 1;
+            if (progress > fadeOutStart) {
+              const t = (progress - fadeOutStart) / (1 - fadeOutStart);
+              opacity = 1 - t;
+            }
+
+            inner.style.transform =
+              "translate3d(0," + translateY + "vh,0) scale(" + scale + ")";
+            inner.style.opacity = opacity;
           });
-          ticking = false;
         }
 
+        let ticking = false;
+
         window.addEventListener("scroll", () => {
-          latestScrollY = window.scrollY || window.pageYOffset;
           if (!ticking) {
-            window.requestAnimationFrame(updateParallax);
+            window.requestAnimationFrame(() => {
+              updateScenes();
+              ticking = false;
+            });
             ticking = true;
           }
         });
 
-        updateParallax();
+        window.addEventListener("resize", () => {
+          updateScenes();
+        });
+
+        updateScenes();
       }
 
       /* ========= 3D BACKGROUND (DATA PARTICLES) ========= */
@@ -2061,6 +2130,7 @@
       function animate() {
         requestAnimationFrame(animate);
 
+        // Background particles movement
         const attr = particleGeo.attributes.position;
         for (let i = 0; i < attr.count; i++) {
           let y = attr.getY(i);
@@ -2071,6 +2141,7 @@
         attr.needsUpdate = true;
         particles.rotation.y += 0.0006;
 
+        // Render scene
         bgRenderer.render(bgScene, bgCamera);
       }
 
