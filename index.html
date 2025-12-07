@@ -678,7 +678,7 @@
         color: var(--text);
       }
 
-      /* ABOUT */
+      /* ABOUT / CAREER JOURNEY STACK */
 
       .about-grid {
         display: grid;
@@ -711,6 +711,48 @@
         color: var(--text-muted);
         font-size: 0.95rem;
         line-height: 1.6;
+      }
+
+      .journey-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        position: relative;
+        padding-left: 10px;
+      }
+
+      .journey-card {
+        position: relative;
+        padding-left: 18px;
+      }
+
+      .journey-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        background: rgba(15, 23, 42, 0.98);
+        box-shadow: 0 0 10px rgba(15, 23, 42, 0.9);
+      }
+
+      .journey-stack::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 10px;
+        bottom: 10px;
+        width: 1px;
+        border-radius: 999px;
+        background: linear-gradient(
+          180deg,
+          rgba(148, 163, 184, 0.4),
+          rgba(34, 211, 238, 0.5)
+        );
+        opacity: 0.7;
       }
 
       .about-highlights {
@@ -1168,7 +1210,7 @@
         <button class="nav-cta" data-scroll="#contact">Book a call</button>
       </header>
 
-      <!-- STICKY TIMELINE NAV (uses existing text only) -->
+      <!-- STICKY TIMELINE NAV -->
       <aside
         class="timeline-nav"
         aria-label="Career journey navigation"
@@ -1361,7 +1403,7 @@
         </div>
       </section>
 
-      <!-- ABOUT (CAREER STORY / BACKGROUND) -->
+      <!-- ABOUT (CAREER JOURNEY STACK: OVERVIEW → ADIDAS → BEFORE THAT → POSITIONING) -->
       <section
         id="about"
         class="section journey-section parallax-layer"
@@ -1372,26 +1414,41 @@
           <h2 class="section-title">From AI delivery to AI strategy &amp; ROI</h2>
         </div>
         <div class="about-grid reveal-on-scroll">
-          <article class="card glass">
-            <p class="body">
-              I’m Abhi, a Data &amp; AI Product Owner and consultant with over seven
-              years of experience turning AI ideas into shipped products across
-              industries like global sportswear retail, banking, energy, insurance, and
-              consumer services. At Adidas, I’ve led enterprise AI initiatives from
-              LLM-powered document automation and multimodal internal search to EU-wide
-              AI adoption strategies. Before that, I delivered AI and data science
-              projects for clients such as a major European bank and a leading energy
-              provider, building solutions for document intelligence, targeted marketing,
-              and analytics pipelines.
-            </p>
-            <p class="body">
-              My sweet spot is translating strategy into clear AI roadmaps, aligning
-              stakeholders, and defining the metrics that prove AI value. Whether we
-              work on GenAI, classic ML, or data foundations, I keep the conversation
-              grounded in risk, feasibility, and impact.
-            </p>
+          <!-- Left: chronological journey using existing sentences -->
+          <article class="card glass journey-stack">
+            <div class="journey-card">
+              <p class="body">
+                I’m Abhi, a Data &amp; AI Product Owner and consultant with over seven
+                years of experience turning AI ideas into shipped products across
+                industries like global sportswear retail, banking, energy, insurance, and
+                consumer services.
+              </p>
+            </div>
+            <div class="journey-card">
+              <p class="body">
+                At Adidas, I’ve led enterprise AI initiatives from LLM-powered document
+                automation and multimodal internal search to EU-wide AI adoption
+                strategies.
+              </p>
+            </div>
+            <div class="journey-card">
+              <p class="body">
+                Before that, I delivered AI and data science projects for clients such as
+                a major European bank and a leading energy provider, building solutions
+                for document intelligence, targeted marketing, and analytics pipelines.
+              </p>
+            </div>
+            <div class="journey-card">
+              <p class="body">
+                My sweet spot is translating strategy into clear AI roadmaps, aligning
+                stakeholders, and defining the metrics that prove AI value. Whether we
+                work on GenAI, classic ML, or data foundations, I keep the conversation
+                grounded in risk, feasibility, and impact.
+              </p>
+            </div>
           </article>
 
+          <!-- Right: highlights (unchanged text, supports journey) -->
           <div>
             <div class="about-highlights">
               <div class="highlight-card">
@@ -1448,7 +1505,7 @@
         </div>
       </section>
 
-      <!-- CASE STUDIES (ROLES / COMPANIES THROUGH TIME) -->
+      <!-- CASE STUDIES (PROJECTS ACROSS ROLES) -->
       <section
         id="cases"
         class="section journey-section parallax-layer"
@@ -1667,7 +1724,7 @@
         </div>
       </section>
 
-      <!-- APPROACH (HOW WE WORK NOW) -->
+      <!-- APPROACH -->
       <section
         id="approach"
         class="section journey-section parallax-layer"
@@ -1713,7 +1770,7 @@
         </div>
       </section>
 
-      <!-- CONTACT (ARRIVAL / PRESENT) -->
+      <!-- CONTACT -->
       <section
         id="contact"
         class="section journey-section parallax-layer"
@@ -1811,7 +1868,7 @@
       // Year
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Smooth scroll for nav buttons (respect prefers-reduced-motion)
+      // Smooth scroll for nav buttons
       document.querySelectorAll("[data-scroll]").forEach((el) => {
         el.addEventListener("click", () => {
           const target = document.querySelector(el.getAttribute("data-scroll"));
@@ -1875,7 +1932,6 @@
 
           revealEls.forEach((el) => revealObserver.observe(el));
         } else {
-          // If reduced motion is preferred, just show everything
           revealEls.forEach((el) => el.classList.add("is-visible"));
         }
 
@@ -1916,11 +1972,7 @@
         });
       }
 
-      /* ========= PARALLAX ON JOURNEY SECTIONS =========
-         Sections with data-parallax-speed move at different speeds
-         relative to scroll, creating a layered parallax effect.
-         Adjust speed values in the HTML (e.g. -0.04, -0.08) to tune.
-      ================================================= */
+      /* ========= PARALLAX ON JOURNEY SECTIONS ========= */
       if (!prefersReducedMotion) {
         const parallaxEls = document.querySelectorAll("[data-parallax-speed]");
         let latestScrollY = window.scrollY || window.pageYOffset;
@@ -1943,7 +1995,6 @@
           }
         });
 
-        // Initial position
         updateParallax();
       }
 
@@ -2010,7 +2061,6 @@
       function animate() {
         requestAnimationFrame(animate);
 
-        // Background particles movement
         const attr = particleGeo.attributes.position;
         for (let i = 0; i < attr.count; i++) {
           let y = attr.getY(i);
@@ -2021,7 +2071,6 @@
         attr.needsUpdate = true;
         particles.rotation.y += 0.0006;
 
-        // Render scene
         bgRenderer.render(bgScene, bgCamera);
       }
 
