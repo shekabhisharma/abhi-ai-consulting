@@ -73,7 +73,7 @@
       .nav {
         position: sticky;
         top: 0;
-        z-index: 5;
+        z-index: 6;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -147,7 +147,85 @@
         cursor: pointer;
       }
 
-      /* SECTIONS */
+      /* STICKY TIMELINE NAV (CAREER JOURNEY) */
+
+      .timeline-nav {
+        position: fixed;
+        top: 50%;
+        left: 2.4vw;
+        transform: translateY(-50%);
+        z-index: 5;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .timeline-nav-inner {
+        position: relative;
+        padding-left: 14px;
+      }
+
+      .timeline-line {
+        position: absolute;
+        left: 4px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        border-radius: 999px;
+        background: linear-gradient(
+          180deg,
+          rgba(148, 163, 184, 0.4),
+          rgba(34, 211, 238, 0.5)
+        );
+        opacity: 0.8;
+      }
+
+      .timeline-item {
+        pointer-events: auto;
+        border: none;
+        background: transparent;
+        padding: 6px 0 6px 12px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        color: var(--text-muted);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        text-align: left;
+      }
+
+      .timeline-dot {
+        position: relative;
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.8);
+        background: rgba(15, 23, 42, 0.9);
+        box-shadow: 0 0 8px rgba(15, 23, 42, 0.9);
+        flex-shrink: 0;
+      }
+
+      .timeline-item.is-active .timeline-dot {
+        border-color: var(--accent);
+        background: radial-gradient(circle at 30% 0, #22d3ee, #4f46e5);
+        box-shadow: 0 0 16px rgba(34, 211, 238, 0.9);
+      }
+
+      .timeline-label {
+        max-width: 160px;
+        white-space: normal;
+        line-height: 1.4;
+      }
+
+      .timeline-item.is-active .timeline-label {
+        color: var(--text);
+      }
+
+      /* SECTIONS / JOURNEY LAYOUT */
 
       .section {
         padding: 72px 6vw;
@@ -155,6 +233,45 @@
 
       .hero-section {
         padding-top: 96px;
+      }
+
+      .journey-section {
+        position: relative;
+        min-height: 100vh;
+      }
+
+      .journey-section::before {
+        content: "";
+        position: absolute;
+        inset: auto auto 10% 55%;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(
+          circle,
+          rgba(34, 211, 238, 0.12),
+          transparent 70%
+        );
+        opacity: 0.7;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .journey-section:nth-of-type(2)::before {
+        inset: 5% 10% auto auto;
+        background: radial-gradient(
+          circle,
+          rgba(168, 85, 247, 0.16),
+          transparent 70%
+        );
+      }
+
+      .journey-section:nth-of-type(3)::before {
+        inset: auto 12% 5% auto;
+        background: radial-gradient(
+          circle,
+          rgba(34, 197, 94, 0.18),
+          transparent 70%
+        );
       }
 
       .section-header {
@@ -931,7 +1048,32 @@
         opacity: 0.8;
       }
 
+      /* PARALLAX LAYERS */
+
+      .parallax-layer {
+        will-change: transform;
+      }
+
+      /* REVEAL-ON-SCROLL ANIMATIONS */
+
+      .has-js .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 700ms ease-out, transform 700ms ease-out;
+      }
+
+      .has-js .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       /* RESPONSIVE */
+
+      @media (max-width: 1200px) {
+        .timeline-nav {
+          display: none;
+        }
+      }
 
       @media (max-width: 1024px) {
         .hero-flow {
@@ -984,6 +1126,25 @@
           grid-template-columns: minmax(0, 1fr);
         }
       }
+
+      /* REDUCED MOTION SUPPORT */
+
+      @media (prefers-reduced-motion: reduce) {
+        .hero-flow-card--float-left,
+        .hero-flow-card--float-center,
+        .hero-flow-card--float-right,
+        .hero-flow-arrow-dot {
+          animation: none;
+        }
+
+        .parallax-layer {
+          transform: none !important;
+        }
+
+        .has-js .reveal-on-scroll {
+          transition: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1007,10 +1168,86 @@
         <button class="nav-cta" data-scroll="#contact">Book a call</button>
       </header>
 
-      <!-- HERO -->
-      <section id="hero" class="section hero-section">
+      <!-- STICKY TIMELINE NAV (uses existing text only) -->
+      <aside
+        class="timeline-nav"
+        aria-label="Career journey navigation"
+      >
+        <div class="timeline-nav-inner">
+          <div class="timeline-line"></div>
+
+          <button
+            class="timeline-item is-active"
+            data-scroll="#hero"
+            data-target="#hero"
+          >
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">
+              Abhi – AI Product Owner &amp; Consultant
+            </span>
+          </button>
+
+          <button
+            class="timeline-item"
+            data-scroll="#about"
+            data-target="#about"
+          >
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">
+              From AI delivery to AI strategy &amp; ROI
+            </span>
+          </button>
+
+          <button
+            class="timeline-item"
+            data-scroll="#cases"
+            data-target="#cases"
+          >
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">
+              From idea to shipped AI products
+            </span>
+          </button>
+
+          <button
+            class="timeline-item"
+            data-scroll="#services"
+            data-target="#services"
+          >
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">
+              What I do
+            </span>
+          </button>
+
+          <button
+            class="timeline-item"
+            data-scroll="#approach"
+            data-target="#approach"
+          >
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">
+              How we work together
+            </span>
+          </button>
+
+          <button
+            class="timeline-item"
+            data-scroll="#contact"
+            data-target="#contact"
+          >
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">
+              Book a discovery call
+            </span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- HERO (NOW) -->
+      <section id="hero" class="section hero-section journey-section">
         <div class="hero-grid">
-          <div class="hero-text">
+          <div class="hero-text reveal-on-scroll">
             <p class="eyebrow">AI PRODUCT OWNER &amp; CONSULTANT</p>
             <h1 class="hero-title">Abhi – AI Product Owner &amp; Consultant</h1>
             <p class="hero-subtitle">
@@ -1045,7 +1282,7 @@
           </div>
 
           <!-- 2D FLOW VISUAL: Client → Abhi + AI → AI Strategy -->
-          <div class="hero-3d-wrapper">
+          <div class="hero-3d-wrapper reveal-on-scroll">
             <div class="hero-flow">
               <!-- Client Problems -->
               <article
@@ -1124,13 +1361,17 @@
         </div>
       </section>
 
-      <!-- ABOUT -->
-      <section id="about" class="section">
-        <div class="section-header">
+      <!-- ABOUT (CAREER STORY / BACKGROUND) -->
+      <section
+        id="about"
+        class="section journey-section parallax-layer"
+        data-parallax-speed="-0.04"
+      >
+        <div class="section-header reveal-on-scroll">
           <p class="eyebrow">ABOUT</p>
           <h2 class="section-title">From AI delivery to AI strategy &amp; ROI</h2>
         </div>
-        <div class="about-grid">
+        <div class="about-grid reveal-on-scroll">
           <article class="card glass">
             <p class="body">
               I’m Abhi, a Data &amp; AI Product Owner and consultant with over seven
@@ -1190,7 +1431,7 @@
         </div>
 
         <!-- CO-PILOT STRIP -->
-        <div class="copilot-strip">
+        <div class="copilot-strip reveal-on-scroll">
           <div class="copilot-icon" aria-hidden="true">
             <div class="copilot-antenna"></div>
             <div class="copilot-face">
@@ -1207,9 +1448,99 @@
         </div>
       </section>
 
-      <!-- SERVICES -->
-      <section id="services" class="section">
-        <div class="section-header">
+      <!-- CASE STUDIES (ROLES / COMPANIES THROUGH TIME) -->
+      <section
+        id="cases"
+        class="section journey-section parallax-layer"
+        data-parallax-speed="-0.06"
+      >
+        <div class="section-header reveal-on-scroll">
+          <p class="eyebrow">CASE STUDIES</p>
+          <h2 class="section-title">From idea to shipped AI products</h2>
+        </div>
+        <div class="cases-grid reveal-on-scroll">
+          <div class="cases-list">
+            <article class="case-card card">
+              <span class="badge">Retail / Sportswear</span>
+              <h3>LLM-powered product data automation</h3>
+              <p>
+                At a global sportswear brand, I led a product data automation initiative
+                using LLMs to extract structured attributes from PPT/PDF documents. This
+                reduced manual effort, improved consistency, and accelerated time-to-
+                market for new products.
+              </p>
+            </article>
+            <article class="case-card card">
+              <span class="badge">Retail / Merchandising</span>
+              <h3>Multimodal AI search for trend-to-product discovery</h3>
+              <p>
+                Designed a multimodal internal search experience connecting global trends
+                to product catalog data. This helped merchandising and product teams
+                discover relevant items faster and make better assortment decisions.
+              </p>
+            </article>
+            <article class="case-card card">
+              <span class="badge">Banking</span>
+              <h3>Document intelligence &amp; OCR for high-volume workflows</h3>
+              <p>
+                In banking, I led the delivery of an optical character recognition (OCR)
+                solution to automate document-heavy processes. The result: higher
+                throughput, improved compliance, and reduced manual errors.
+              </p>
+            </article>
+            <article class="case-card card">
+              <span class="badge">Energy</span>
+              <h3>Targeted retention campaigns using ML</h3>
+              <p>
+                For an energy provider, I supported ML models for behavioral segmentation
+                and personalized vouchers, increasing campaign efficiency and customer
+                retention.
+              </p>
+            </article>
+          </div>
+
+          <!-- Business barplot (sales) + AI robot -->
+          <div>
+            <div class="cases-visual">
+              <div class="cases-chart" aria-hidden="true">
+                <div class="cases-chart-label">Business sales over time</div>
+                <div class="cases-chart-bars">
+                  <div class="cases-chart-bar b1"></div>
+                  <div class="cases-chart-bar b2"></div>
+                  <div class="cases-chart-bar b3"></div>
+                  <div class="cases-chart-bar b4"></div>
+                </div>
+                <div class="cases-chart-axis">
+                  <span>Q1</span>
+                  <span>Q2</span>
+                  <span>Q3</span>
+                  <span>Q4</span>
+                </div>
+              </div>
+              <div class="cases-robot">
+                <div class="cases-robot-icon">🤖</div>
+                <div class="cases-robot-text">
+                  AI as a partner that reads signals, optimizes decisions, and compounds
+                  business results.
+                </div>
+              </div>
+            </div>
+            <p class="cases-caption">
+              A visual metaphor for moving from scattered experiments to a focused AI
+              portfolio with compounding ROI—bringing together business performance and
+              applied AI.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES (CURRENT CONSULTING OFFER) -->
+      <section
+        id="services"
+        class="section journey-section parallax-layer"
+        data-parallax-speed="-0.08"
+      >
+        <div class="section-header reveal-on-scroll">
           <p class="eyebrow">SERVICES</p>
           <h2 class="section-title">What I do</h2>
           <p class="section-subtitle">
@@ -1218,7 +1549,7 @@
           </p>
         </div>
 
-        <div class="services-grid">
+        <div class="services-grid reveal-on-scroll">
           <article class="card service-card">
             <h3>AI strategy &amp; portfolio roadmapping</h3>
             <p class="service-for">
@@ -1336,95 +1667,17 @@
         </div>
       </section>
 
-      <!-- CASE STUDIES -->
-      <section id="cases" class="section">
-        <div class="section-header">
-          <p class="eyebrow">CASE STUDIES</p>
-          <h2 class="section-title">From idea to shipped AI products</h2>
-        </div>
-        <div class="cases-grid">
-          <div class="cases-list">
-            <article class="case-card card">
-              <span class="badge">Retail / Sportswear</span>
-              <h3>LLM-powered product data automation</h3>
-              <p>
-                At a global sportswear brand, I led a product data automation initiative
-                using LLMs to extract structured attributes from PPT/PDF documents. This
-                reduced manual effort, improved consistency, and accelerated time-to-
-                market for new products.
-              </p>
-            </article>
-            <article class="case-card card">
-              <span class="badge">Retail / Merchandising</span>
-              <h3>Multimodal AI search for trend-to-product discovery</h3>
-              <p>
-                Designed a multimodal internal search experience connecting global trends
-                to product catalog data. This helped merchandising and product teams
-                discover relevant items faster and make better assortment decisions.
-              </p>
-            </article>
-            <article class="case-card card">
-              <span class="badge">Banking</span>
-              <h3>Document intelligence &amp; OCR for high-volume workflows</h3>
-              <p>
-                In banking, I led the delivery of an optical character recognition (OCR)
-                solution to automate document-heavy processes. The result: higher
-                throughput, improved compliance, and reduced manual errors.
-              </p>
-            </article>
-            <article class="case-card card">
-              <span class="badge">Energy</span>
-              <h3>Targeted retention campaigns using ML</h3>
-              <p>
-                For an energy provider, I supported ML models for behavioral segmentation
-                and personalized vouchers, increasing campaign efficiency and customer
-                retention.
-              </p>
-            </article>
-          </div>
-
-          <!-- Business barplot (sales) + AI robot -->
-          <div>
-            <div class="cases-visual">
-              <div class="cases-chart" aria-hidden="true">
-                <div class="cases-chart-label">Business sales over time</div>
-                <div class="cases-chart-bars">
-                  <div class="cases-chart-bar b1"></div>
-                  <div class="cases-chart-bar b2"></div>
-                  <div class="cases-chart-bar b3"></div>
-                  <div class="cases-chart-bar b4"></div>
-                </div>
-                <div class="cases-chart-axis">
-                  <span>Q1</span>
-                  <span>Q2</span>
-                  <span>Q3</span>
-                  <span>Q4</span>
-                </div>
-              </div>
-              <div class="cases-robot">
-                <div class="cases-robot-icon">🤖</div>
-                <div class="cases-robot-text">
-                  AI as a partner that reads signals, optimizes decisions, and compounds
-                  business results.
-                </div>
-              </div>
-            </div>
-            <p class="cases-caption">
-              A visual metaphor for moving from scattered experiments to a focused AI
-              portfolio with compounding ROI—bringing together business performance and
-              applied AI.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- APPROACH -->
-      <section id="approach" class="section">
-        <div class="section-header">
+      <!-- APPROACH (HOW WE WORK NOW) -->
+      <section
+        id="approach"
+        class="section journey-section parallax-layer"
+        data-parallax-speed="-0.1"
+      >
+        <div class="section-header reveal-on-scroll">
           <p class="eyebrow">APPROACH</p>
           <h2 class="section-title">How we work together</h2>
         </div>
-        <div class="approach-grid">
+        <div class="approach-grid reveal-on-scroll">
           <article class="card approach-card">
             <span class="approach-step">01</span>
             <h3>Clarify the real problem</h3>
@@ -1460,9 +1713,13 @@
         </div>
       </section>
 
-      <!-- CONTACT -->
-      <section id="contact" class="section">
-        <div class="section-header">
+      <!-- CONTACT (ARRIVAL / PRESENT) -->
+      <section
+        id="contact"
+        class="section journey-section parallax-layer"
+        data-parallax-speed="-0.12"
+      >
+        <div class="section-header reveal-on-scroll">
           <p class="eyebrow">CONTACT</p>
           <h2 class="section-title">Book a discovery call</h2>
           <p class="section-subtitle">
@@ -1470,7 +1727,7 @@
             experimentation to measurable results.
           </p>
         </div>
-        <div class="contact-grid">
+        <div class="contact-grid reveal-on-scroll">
           <article class="card glass contact-card">
             <p class="body">
               In a 30–45 minute call, we’ll discuss your current AI initiatives, the
@@ -1544,20 +1801,30 @@
 
     <!-- MAIN SCRIPT -->
     <script>
+      // Flag JS-enabled for CSS-based reveals
+      document.body.classList.add("has-js");
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
       // Year
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Smooth scroll for nav buttons
+      // Smooth scroll for nav buttons (respect prefers-reduced-motion)
       document.querySelectorAll("[data-scroll]").forEach((el) => {
         el.addEventListener("click", () => {
           const target = document.querySelector(el.getAttribute("data-scroll"));
           if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            target.scrollIntoView({
+              behavior: prefersReducedMotion ? "auto" : "smooth",
+              block: "start",
+            });
           }
         });
       });
 
-      // Contact form => mailto
+      // Contact form => mailto (unchanged)
       const contactForm = document.getElementById("contactForm");
       contactForm.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -1588,6 +1855,97 @@
           "mailto:ungiorno7@gmail.com?subject=" + subject + "&body=" + body;
         window.location.href = mailto;
       });
+
+      /* ========= SCROLL-TRIGGERED REVEALS & TIMELINE HIGHLIGHT ========= */
+      if ("IntersectionObserver" in window) {
+        const revealEls = document.querySelectorAll(".reveal-on-scroll");
+
+        if (!prefersReducedMotion) {
+          const revealObserver = new IntersectionObserver(
+            (entries, obs) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  obs.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.25 }
+          );
+
+          revealEls.forEach((el) => revealObserver.observe(el));
+        } else {
+          // If reduced motion is preferred, just show everything
+          revealEls.forEach((el) => el.classList.add("is-visible"));
+        }
+
+        // Timeline highlighting based on current section
+        const timelineItems = document.querySelectorAll(".timeline-item");
+        const sectionMap = {};
+
+        timelineItems.forEach((item) => {
+          const targetSelector = item.getAttribute("data-target");
+          if (targetSelector) {
+            const id = targetSelector.replace("#", "");
+            sectionMap[id] = item;
+          }
+        });
+
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.id;
+                const activeItem = sectionMap[id];
+                if (activeItem) {
+                  timelineItems.forEach((btn) =>
+                    btn.classList.remove("is-active")
+                  );
+                  activeItem.classList.add("is-active");
+                }
+              }
+            });
+          },
+          {
+            threshold: 0.45,
+          }
+        );
+
+        document.querySelectorAll("section").forEach((section) => {
+          sectionObserver.observe(section);
+        });
+      }
+
+      /* ========= PARALLAX ON JOURNEY SECTIONS =========
+         Sections with data-parallax-speed move at different speeds
+         relative to scroll, creating a layered parallax effect.
+         Adjust speed values in the HTML (e.g. -0.04, -0.08) to tune.
+      ================================================= */
+      if (!prefersReducedMotion) {
+        const parallaxEls = document.querySelectorAll("[data-parallax-speed]");
+        let latestScrollY = window.scrollY || window.pageYOffset;
+        let ticking = false;
+
+        function updateParallax() {
+          parallaxEls.forEach((el) => {
+            const speed = parseFloat(el.dataset.parallaxSpeed || "0");
+            const offset = latestScrollY * speed;
+            el.style.transform = "translateY(" + offset + "px)";
+          });
+          ticking = false;
+        }
+
+        window.addEventListener("scroll", () => {
+          latestScrollY = window.scrollY || window.pageYOffset;
+          if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+          }
+        });
+
+        // Initial position
+        updateParallax();
+      }
 
       /* ========= 3D BACKGROUND (DATA PARTICLES) ========= */
       const bgCanvas = document.getElementById("bgCanvas");
@@ -1649,8 +2007,6 @@
       handleResize();
 
       /* ========= ANIMATION LOOP ========= */
-      const clock = new THREE.Clock();
-
       function animate() {
         requestAnimationFrame(animate);
 
