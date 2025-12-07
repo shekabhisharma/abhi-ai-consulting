@@ -150,15 +150,8 @@
       /* STICKY TIMELINE NAV (CAREER JOURNEY) */
 
       .timeline-nav {
-        position: fixed;
-        top: 50%;
-        left: 2.4vw;
-        transform: translateY(-50%);
-        z-index: 5;
-        pointer-events: none;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        /* HIDE entire timeline navigation to avoid overlapping text */
+        display: none;
       }
 
       .timeline-nav-inner {
@@ -1242,7 +1235,7 @@
         <button class="nav-cta" data-scroll="#contact">Book a call</button>
       </header>
 
-      <!-- STICKY TIMELINE NAV -->
+      <!-- STICKY TIMELINE NAV (hidden via CSS, kept in DOM if you want later) -->
       <aside class="timeline-nav" aria-label="Career journey navigation">
         <div class="timeline-nav-inner">
           <div class="timeline-line"></div>
@@ -1934,7 +1927,7 @@
         window.location.href = mailto;
       });
 
-      /* ========= SCROLL-TRIGGERED REVEALS & TIMELINE HIGHLIGHT ========= */
+      /* ========= SCROLL-TRIGGERED REVEALS ========= */
       if ("IntersectionObserver" in window) {
         const revealEls = document.querySelectorAll(".reveal-on-scroll");
 
@@ -1955,52 +1948,9 @@
         } else {
           revealEls.forEach((el) => el.classList.add("is-visible"));
         }
-
-        // Timeline highlighting based on current section
-        const timelineItems = document.querySelectorAll(".timeline-item");
-        const sectionMap = {};
-
-        timelineItems.forEach((item) => {
-          const targetSelector = item.getAttribute("data-target");
-          if (targetSelector) {
-            const id = targetSelector.replace("#", "");
-            sectionMap[id] = item;
-          }
-        });
-
-        const sectionObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const id = entry.target.id;
-                const activeItem = sectionMap[id];
-                if (activeItem) {
-                  timelineItems.forEach((btn) =>
-                    btn.classList.remove("is-active")
-                  );
-                  activeItem.classList.add("is-active");
-                }
-              }
-            });
-          },
-          {
-            threshold: 0.45,
-          }
-        );
-
-        document.querySelectorAll("section").forEach((section) => {
-          sectionObserver.observe(section);
-        });
       }
 
-      /* ========= 4D SCROLL SCENES (PIN + OVERLAP) =========
-         Each .scroll-scene is taller than the viewport.
-         Its .scene-inner is sticky and:
-           - moves slightly on Y
-           - scales a bit
-           - fades out at the end of the scene
-         This creates the feeling of walking through stacked layers.
-      ===================================================== */
+      /* ========= 4D SCROLL SCENES (PIN + OVERLAP) ========= */
       if (!prefersReducedMotion) {
         const scenes = Array.from(document.querySelectorAll(".scroll-scene"));
 
